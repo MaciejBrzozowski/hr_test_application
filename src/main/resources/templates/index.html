@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${page_title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+<div class="login">
+    <h2 th:text="${title}"/>
+    <th:form name="login" action="login" method="POST">
+        <th:fieldset>
+            <th:input type="email" placeholder="Email"/>
+            <th:input type="password" placeholder="Password"/>
+        </th:fieldset>
+        <th:input type="submit" th:value="${submitText}"/>
+    </th:form>
+    <div class="utilities">
+        <a th:href="${redirect_login}" th:text="${login_text}"/>
+        <a th:href="${redirect_register}" th:text="${register_text}"/>
+        <a th:href="${redirect_reset}" th:text="${reset_text}"/>
+    </div>
+</div>
+
+
+</body>
+</html>
