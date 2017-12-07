@@ -9,12 +9,21 @@ import pl.brzozowski.maciej.clis.services.RequestOut;
 @RestController
 public class GetCurrencyRate {
 
-    RequestOut reqestOut = new RequestOut();
+    RequestOut requestOut = new RequestOut();
 
 
     @GetMapping("/currencyIn/{currencyIn}/currencyOut/{currencyOut}")
     public String getCurrencyRate(@PathVariable("currencyIn") Curency curencyIn, @PathVariable("currencyOut") Curency curencyOut) {
 
-        return String.valueOf(reqestOut.getCurrencyRate(curencyIn, curencyOut));
+        return String.valueOf(requestOut.getCurrencyRate(curencyIn, curencyOut));
+    }
+
+ @GetMapping("/currencyIn/{currencyIn}/currencyOut/{currencyOut}/amount/{amount}")
+    public String calculateExchange (@PathVariable("currencyIn") Curency curencyIn,
+                                     @PathVariable("currencyOut") Curency curencyOut,
+                                     @PathVariable("amount") double amount) {
+
+
+        return String.valueOf(amount * requestOut.getCurrencyRate(curencyIn, curencyOut));
     }
 }
