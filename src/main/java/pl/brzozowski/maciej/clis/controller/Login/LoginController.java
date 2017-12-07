@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.web.controller.Login;
+package pl.brzozowski.maciej.clis.controller.Login;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.brzozowski.maciej.clis.ClisApplication;
-import pl.brzozowski.maciej.clis.web.TemplatesDefinitions.IndexTemplate;
+import pl.brzozowski.maciej.clis.utilities.IndexTemplate;
 
 @Controller
 public class LoginController {

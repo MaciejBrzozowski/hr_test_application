@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.domain.entity;
+package pl.brzozowski.maciej.clis.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

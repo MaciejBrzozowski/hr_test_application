@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.web.TemplatesDefinitions;
+package pl.brzozowski.maciej.clis.utilities;
 
 import org.springframework.stereotype.Component;
 

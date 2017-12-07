@@ -1,9 +1,9 @@
-package pl.brzozowski.maciej.clis.web.controller.PasswordReset;
+package pl.brzozowski.maciej.clis.controller.PasswordReset;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.brzozowski.maciej.clis.web.TemplatesDefinitions.IndexTemplate;
+import pl.brzozowski.maciej.clis.utilities.IndexTemplate;
 
 @Controller
 public class PasswordReset {

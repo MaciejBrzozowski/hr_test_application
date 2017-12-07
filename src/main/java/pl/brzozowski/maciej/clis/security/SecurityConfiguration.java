@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.web.security;
+package pl.brzozowski.maciej.clis.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

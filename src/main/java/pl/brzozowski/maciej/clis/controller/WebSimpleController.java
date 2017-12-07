@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.web.controller;
+package pl.brzozowski.maciej.clis.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
