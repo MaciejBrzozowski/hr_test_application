@@ -3,6 +3,7 @@ package pl.brzozowski.maciej.clis.controller.Login;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import pl.brzozowski.maciej.clis.ClisApplication;
 import pl.brzozowski.maciej.clis.utilities.IndexTemplate;
 
 @Controller
+@EnableWebSecurity
 public class LoginController {
 
     private static final Logger log = LoggerFactory.getLogger(ClisApplication.class);
@@ -31,6 +33,7 @@ public class LoginController {
         model.addAttribute("register_text", index.REGISTER_TEXT);
         model.addAttribute("reset_text", index.RESET_TEXT);
         model.addAttribute("submitText", index.LOGIN_SUBMIT);
+        model.addAttribute("form_name",index.LOGIN_FORM_NAME);
         return "index";
     }
 

@@ -16,8 +16,10 @@ import java.io.IOException;
 public class RequestOut {
 
     private final String URL = "https://api.fixer.io/latest?base=";
+
     private OkHttpClient client = new OkHttpClient();
-    private JsonParser jsonParser = new JsonParser();
+
+    private JsonParser jsonParser ;
 
     public double getCurrencyRate(Curency curencyIn, Curency curencyOut) {
         Response response;
