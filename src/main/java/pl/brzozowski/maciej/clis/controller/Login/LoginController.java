@@ -34,13 +34,14 @@ public class LoginController {
         model.addAttribute("reset_text", index.RESET_TEXT);
         model.addAttribute("submitText", index.LOGIN_SUBMIT);
         model.addAttribute("form_name",index.LOGIN_FORM_NAME);
+        model.addAttribute("action","/login");
         return "index";
     }
 
     @PostMapping(LOGIN)
     public String postLogin(HttpServletRequest request) {
-        log.info("User login request : ", request.getParameter("email"));
-        return "";
+        log.info("User login request : ", request.getParameter("Email"));
+        return "index";
     }
 
 }

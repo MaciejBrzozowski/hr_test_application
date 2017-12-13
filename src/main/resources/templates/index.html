@@ -9,15 +9,15 @@
 <body>
 <div class="login">
     <h2 th:text="${title}"/>
-    <th:form name="${form_name}" action="register" method="post">
+    <th:form th:name="${form_name}" th:action="${action}" th:method="post">
         <fieldset>
-            <input type="email" placeholder="Email"/>
-            <input type="password" placeholder="Password"/>
+            <input th:type="email" th:placeholder="Email"/>
+            <input th:type="password" th:placeholder="Password"/>
         </fieldset>
         <input type="submit" th:value="${submitText}"/>
-        <input type="hidden"
-               name="${_csrf.parameterName}"
-               value="${_csrf.token}"/>
+        <th:input th:type="hidden"
+                  th:name="${_csrf.parameterName}"
+                  th:value="${_csrf.token}"/>
     </th:form>
     <div class="utilities">
         <a th:href="${redirect_login}" th:text="${login_text}"/>

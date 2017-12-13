@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.json.simple.parser.ParseException;
-import pl.brzozowski.maciej.clis.utilities.JsonParser;
+import pl.brzozowski.maciej.clis.utilities.JsonCurrencyParser;
 
 import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
@@ -18,15 +18,14 @@ public class RequestOut {
     private final String URL = "https://api.fixer.io/latest?base=";
 
     private OkHttpClient client = new OkHttpClient();
+    private JsonCurrencyParser jsonCurrencyParser = new JsonCurrencyParser() ;
 
-    private JsonParser jsonParser ;
-
-    public double getCurrencyRate(Curency curencyIn, Curency curencyOut) {
+    public double getCurrencyRate(Currency currencyIn, Currency currencyOut) {
         Response response;
         double currencyRate = 0;
         try {
             Request request = new Request.Builder()
-                    .url(URL.concat(curencyIn.toString()))
+                    .url(URL.concat(currencyIn.toString()))
                     .get()
                     .addHeader("cache-control", "no-cache")
                     .build();
@@ -37,7 +36,7 @@ public class RequestOut {
             if (response.code() >= 300) {
                 throw new HTTPException(response.code());
             }
-            currencyRate = jsonParser.jsonParserRequestOut(response.body().string(),curencyOut);
+            currencyRate = jsonCurrencyParser.jsonParserRequestOut(response.body().string(), currencyOut);
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
