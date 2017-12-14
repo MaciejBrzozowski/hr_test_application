@@ -22,7 +22,7 @@ public class RequestOut {
 
     public double getCurrencyRate(Curency curencyIn, Curency curencyOut) {
         Response response;
-        double currenyRate = 0;
+        double currencyRate = 0;
         try {
             Request request = new Request.Builder()
                     .url(URL.concat(curencyIn.toString()))
@@ -38,12 +38,12 @@ public class RequestOut {
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(response.body().string());
             System.out.println(jsonObject.toJSONString());
-            currenyRate = ((HashMap<Curency, Double>) jsonObject.get("rates")).get(curencyOut);
+            currencyRate = ((HashMap<Curency, Double>) jsonObject.get("rates")).get(curencyOut);
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 
-        return currenyRate;
+        return currencyRate;
     }
 
 
