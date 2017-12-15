@@ -20,6 +20,10 @@ public class IndexTemplate {
     public final String LOGIN_SUBMIT = "Log in";
     public final String REGISTER_SUBMIT = "Register";
     public final String RESET_SUBMIT = "Reset Password";
+    public final String LOGIN_FORM_NAME = "login";
+    public final String REGISTER_FORM_NAME = "register";
+    public final String RESET_FORM_NAME = "reset";
+
 
 
 }

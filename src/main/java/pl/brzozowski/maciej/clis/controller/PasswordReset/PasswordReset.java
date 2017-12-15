@@ -1,11 +1,13 @@
 package pl.brzozowski.maciej.clis.controller.PasswordReset;
 
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.brzozowski.maciej.clis.utilities.IndexTemplate;
 
 @Controller
+@EnableWebSecurity
 public class PasswordReset {
 
 
@@ -24,6 +26,7 @@ public class PasswordReset {
         model.addAttribute("register_text", index.REGISTER_TEXT);
         model.addAttribute("login_text", index.LOGIN_TEXT);
         model.addAttribute("submitText", index.RESET_SUBMIT);
+        model.addAttribute("form_name",index.RESET_FORM_NAME);
         return "index";
     }
 

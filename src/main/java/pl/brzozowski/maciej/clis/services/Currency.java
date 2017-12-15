@@ -1,6 +1,6 @@
 package pl.brzozowski.maciej.clis.services;
 
-public enum Curency {
+public enum Currency {
     EUR,
     AUD,
     BGN,
