@@ -26,7 +26,7 @@ public class PasswordReset {
         model.addAttribute("register_text", index.REGISTER_TEXT);
         model.addAttribute("login_text", index.LOGIN_TEXT);
         model.addAttribute("submitText", index.RESET_SUBMIT);
-        model.addAttribute("form_name",index.RESET_FORM_NAME);
+        model.addAttribute("form_name", index.RESET_FORM_NAME);
         return "index";
     }
 

@@ -18,7 +18,7 @@ public class RequestOut {
     private final String URL = "https://api.fixer.io/latest?base=";
 
     private OkHttpClient client = new OkHttpClient();
-    private JsonCurrencyParser jsonCurrencyParser = new JsonCurrencyParser() ;
+    private JsonCurrencyParser jsonCurrencyParser = new JsonCurrencyParser();
 
     public double getCurrencyRate(Currency currencyIn, Currency currencyOut) {
         Response response;
@@ -31,7 +31,7 @@ public class RequestOut {
                     .build();
 
             response = client.newCall(request)
-                             .execute();
+                    .execute();
 
             if (response.code() >= 300) {
                 throw new HTTPException(response.code());

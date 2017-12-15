@@ -33,8 +33,8 @@ public class LoginController {
         model.addAttribute("register_text", index.REGISTER_TEXT);
         model.addAttribute("reset_text", index.RESET_TEXT);
         model.addAttribute("submitText", index.LOGIN_SUBMIT);
-        model.addAttribute("form_name",index.LOGIN_FORM_NAME);
-        model.addAttribute("action","/login");
+        model.addAttribute("form_name", index.LOGIN_FORM_NAME);
+        model.addAttribute("action", "/login");
         return "index";
     }
 

@@ -16,7 +16,7 @@ public class JsonCurrencyParser {
     public double jsonParserRequestOut(String response, Currency currency) throws IOException, ParseException {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(response);
-        jsonObject = (JSONObject)jsonObject.get("rates");
+        jsonObject = (JSONObject) jsonObject.get("rates");
         return (Double) jsonObject.getOrDefault(currency.name().toUpperCase(), 0D);
     }
 }

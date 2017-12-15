@@ -27,7 +27,7 @@ public class RegisterController {
         model.addAttribute("redirect_reset", index.RESET_REDIRECT);
         model.addAttribute("reset_text", index.RESET_TEXT);
         model.addAttribute("submitText", index.REGISTER_SUBMIT);
-        model.addAttribute("form_name",index.REGISTER_FORM_NAME);
+        model.addAttribute("form_name", index.REGISTER_FORM_NAME);
         return "index";
     }
 
@@ -40,11 +40,10 @@ public class RegisterController {
         model.addAttribute("redirect_reset", index.RESET_REDIRECT);
         model.addAttribute("reset_text", index.RESET_TEXT);
         model.addAttribute("submitText", index.REGISTER_SUBMIT);
-        model.addAttribute("form_name",index.REGISTER_FORM_NAME);
-        model.addAttribute("message","You have bin PSI HUJU zarejsetrowany");
+        model.addAttribute("form_name", index.REGISTER_FORM_NAME);
+        model.addAttribute("message", "You have bin PSI HUJU zarejsetrowany");
         return "index";
     }
-
 
 
 }

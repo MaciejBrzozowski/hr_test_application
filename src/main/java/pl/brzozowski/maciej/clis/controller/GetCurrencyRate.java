@@ -15,17 +15,16 @@ public class GetCurrencyRate {
     private final String BASE_URL_AMOUNT = "/amount/{amount}";
 
 
-
     @GetMapping
     public String getCurrencyRate(@PathVariable("currencyIn") Currency currencyIn, @PathVariable("currencyOut") Currency currencyOut) {
 
         return String.valueOf(requestOut.getCurrencyRate(currencyIn, currencyOut));
     }
 
- @GetMapping(BASE_URL_AMOUNT)
-    public String calculateExchange (@PathVariable("currencyIn") Currency currencyIn,
-                                     @PathVariable("currencyOut") Currency currencyOut,
-                                     @PathVariable("amount") double amount) {
+    @GetMapping(BASE_URL_AMOUNT)
+    public String calculateExchange(@PathVariable("currencyIn") Currency currencyIn,
+                                    @PathVariable("currencyOut") Currency currencyOut,
+                                    @PathVariable("amount") double amount) {
 
 
         return String.valueOf(amount * requestOut.getCurrencyRate(currencyIn, currencyOut));
