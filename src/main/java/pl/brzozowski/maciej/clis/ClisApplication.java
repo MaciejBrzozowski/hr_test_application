@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan
 public class ClisApplication {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClisApplication.class);
+    public static final Logger LOG = LoggerFactory.getLogger(ClisApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(ClisApplication.class, args);

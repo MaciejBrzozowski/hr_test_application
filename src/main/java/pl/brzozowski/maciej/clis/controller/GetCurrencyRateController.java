@@ -1,5 +1,6 @@
 package pl.brzozowski.maciej.clis.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,9 +10,10 @@ import pl.brzozowski.maciej.clis.services.RequestOut;
 
 @RestController
 @RequestMapping(value = "/currencyIn/{currencyIn}/currencyOut/{currencyOut}")
-public class GetCurrencyRate {
+public class GetCurrencyRateController {
 
-    private RequestOut requestOut = new RequestOut();
+    @Autowired
+    private RequestOut requestOut;
     private final String BASE_URL_AMOUNT = "/amount/{amount}";
 
 
