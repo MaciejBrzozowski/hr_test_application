@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.utilities;
+package pl.brzozowski.maciej.clis.services;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

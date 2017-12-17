@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.brzozowski.maciej.clis.services.UnitConverter;
-import pl.brzozowski.maciej.clis.utilities.FindIContent;
 
 import java.util.logging.Logger;
 
@@ -16,8 +15,6 @@ public class UnitConverterControler {
 
     @Autowired
     private UnitConverter unitConverter;
-    @Autowired
-    private FindIContent findIContent;
     private String response;
     private String errorResponse = "Given units can not be converted";
     private Logger logger = Logger.getLogger(this.getClass().getName());
@@ -29,18 +26,16 @@ public class UnitConverterControler {
         return response;
     }
 
-    @GetMapping("/quantity/{quantity}")
+    @GetMapping("/quantity/{quantity:.+}")
     public String convertUnits(@PathVariable("unitIn") String unitIn,
                                @PathVariable("unitOut") String unitOut,
                                @PathVariable("quantity") double quantity) {
 
+        logger.info("unitIn: " + unitIn + "| unitOut: " + unitOut + "| quantity: " + quantity);
         response = unitConverter.getConvertedUnit(quantity, unitIn, unitOut);
-        response = response.replace("<b>", "").replace("</b>", "");
-        logger.info(response);
-        response = findIContent.findStringByRegex(response, quantity, unitIn, unitOut);
         logger.info(response);
 
-        return response.isEmpty() ? errorResponse : (quantity + " " + response);
+        return response.isEmpty() ? errorResponse : response;
     }
 
 }

@@ -14,7 +14,7 @@ public class GetCurrencyRateController {
 
     @Autowired
     private RequestOut requestOut;
-    private final String BASE_URL_AMOUNT = "/amount/{amount}";
+    private final String BASE_URL_AMOUNT = "/amount/{amount:.+}";
 
 
     @GetMapping
