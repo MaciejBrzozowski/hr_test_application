@@ -21,7 +21,7 @@ public class FileSearch {
     private Logger logger;
     private Scanner scanner;
     private String conversionData;
-    private UnitConversionObject emptyConversionData = new UnitConversionObject("", "", "", "", "", 0D, 0D);
+    private UnitConversionObject emptyConversionData = new UnitConversionObject("Units definition not found", "", "", "", "", 0D, 0D);
 
     public UnitConversionObject returnFromFileDesiredConversionData(File file, String unitInName, String unitOutName) {
         try {

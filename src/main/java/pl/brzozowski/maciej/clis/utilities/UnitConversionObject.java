@@ -15,6 +15,8 @@ public class UnitConversionObject {
     private String unitOutSymbol;
     private double factor;
     private double delta;
+    private double quantity;
+    private double result;
 
     public UnitConversionObject() {
     }
@@ -42,10 +44,11 @@ public class UnitConversionObject {
     }
 
     public double convertToDouble(double quantity) {
-        return quantity * this.factor + this.delta;
+        this.quantity = quantity;
+        return this.result = quantity * this.factor + this.delta;
     }
 
     public String convertToString(double quantity) {
-        return String.valueOf(quantity * this.factor + this.delta);
+        return String.valueOf(convertToDouble(quantity));
     }
 }
