@@ -8,6 +8,7 @@ import pl.brzozowski.maciej.clis.utilities.ReadDataFile;
 import pl.brzozowski.maciej.clis.utilities.UnitConversionObject;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.logging.Logger;
 
 @NoArgsConstructor
@@ -24,12 +25,12 @@ public class UnitConverter {
     private Logger logger = Logger.getLogger(this.getClass()
                                                  .getSimpleName());
 
-    public String getConvertedUnit(double quantity, String unitIn, String unitOut) {
+    public String getConvertedUnit(BigDecimal quantity, String unitIn, String unitOut) {
         convertUnit(unitIn, unitOut);
         return unitConversionObject.convertToString(quantity);
     }
 
-    public UnitConversionObject getConvertedUnitAsObject(double quantity, String unitIn, String unitOut) {
+    public UnitConversionObject getConvertedUnitAsObject(BigDecimal quantity, String unitIn, String unitOut) {
         convertUnit(unitIn, unitOut);
         unitConversionObject.convertToDouble(quantity);
         return unitConversionObject;

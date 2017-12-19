@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.brzozowski.maciej.clis.services.UnitConverter;
 import pl.brzozowski.maciej.clis.utilities.UnitConversionObject;
 
+import java.math.BigDecimal;
 import java.util.logging.Logger;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -36,7 +37,7 @@ public class UnitConverterControler {
     @GetMapping("/quantity/{quantity:.+}")
     public ResponseEntity convertUnits(@PathVariable("unitIn") String unitIn,
                                        @PathVariable("unitOut") String unitOut,
-                                       @PathVariable("quantity") double quantity) {
+                                       @PathVariable("quantity") BigDecimal quantity) {
 
         logger.info("unitIn: " + unitIn + "| unitOut: " + unitOut + "| quantity: " + quantity);
         response = unitConverter.getConvertedUnitAsObject(quantity, unitIn, unitOut);
