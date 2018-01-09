@@ -2,6 +2,8 @@ package pl.brzozowski.maciej.clis.utilities;
 
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 import static java.lang.Double.valueOf;
 import static pl.brzozowski.maciej.clis.utilities.StringCalculations.divide;
 
@@ -15,6 +17,8 @@ public class UnitConversionObject {
     private String unitOutSymbol;
     private double factor;
     private double delta;
+    private BigDecimal quantity;
+    private BigDecimal result;
 
     public UnitConversionObject() {
     }
@@ -41,11 +45,13 @@ public class UnitConversionObject {
         return this;
     }
 
-    public double convertToDouble(double quantity) {
-        return quantity * this.factor + this.delta;
+    public BigDecimal convertToDouble(BigDecimal quantity) {
+        this.quantity = quantity;
+        return this.result = quantity.multiply(BigDecimal.valueOf(this.factor))
+                                     .add(BigDecimal.valueOf(this.delta));
     }
 
-    public String convertToString(double quantity) {
-        return String.valueOf(quantity * this.factor + this.delta);
+    public String convertToString(BigDecimal quantity) {
+        return String.valueOf(quantity);
     }
 }
