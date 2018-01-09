@@ -1,19 +1,53 @@
 package pl.brzozowski.maciej.clis.entity;
 
-import javax.persistence.*;
 
-import static javax.persistence.CascadeType.ALL;
-
-@Entity
-@Table(name = "user_details")
 public class UserDetails {
 
-    @Id
-    private int id;
     private String firstName;
     private String lastName;
     private String avatar;
-    @OneToOne(targetEntity = User.class, cascade = ALL, orphanRemoval = true)
-    private User user;
+    private String token;
 
+    public UserDetails() {
+    }
+
+    public UserDetails(String firstName, String lastName, String avatar, String token) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.avatar = avatar;
+        this.token = token;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }
+

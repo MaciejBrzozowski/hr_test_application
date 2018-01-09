@@ -1,48 +1,40 @@
 package pl.brzozowski.maciej.clis.controller.Register;
 
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import pl.brzozowski.maciej.clis.utilities.IndexTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import pl.brzozowski.maciej.clis.entity.User;
+import pl.brzozowski.maciej.clis.repository.UserRepository;
+
+import static org.springframework.http.HttpStatus.CREATED;
+import static pl.brzozowski.maciej.clis.ClisApplication.LOG;
 
 
-@Controller
-@EnableWebSecurity
+@RestController
 public class RegisterController {
 
-    private IndexTemplate index;
-
-    public RegisterController(IndexTemplate index) {
-        this.index = index;
-    }
+    @Autowired
+    private UserRepository userRepository;
+    private String info = "Use put mapping to add new user";
 
     @GetMapping("/register")
-    public String registerController(Model model) {
-        model.addAttribute("title", index.REGISTER_HEADER);
-        model.addAttribute("page_title", index.REGISTER_PAGE_TITLE);
-        model.addAttribute("redirect_login", index.LOGIN_REDIRECT);
-        model.addAttribute("login_text", index.LOGIN_TEXT);
-        model.addAttribute("redirect_reset", index.RESET_REDIRECT);
-        model.addAttribute("reset_text", index.RESET_TEXT);
-        model.addAttribute("submitText", index.REGISTER_SUBMIT);
-        model.addAttribute("form_name", index.REGISTER_FORM_NAME);
-        return "index";
+    public String registerController() {
+        return info;
     }
 
     @PostMapping("/register")
-    public String postRegisterController(Model model) {
-        model.addAttribute("title", index.REGISTER_HEADER);
-        model.addAttribute("page_title", index.REGISTER_PAGE_TITLE);
-        model.addAttribute("redirect_login", index.LOGIN_REDIRECT);
-        model.addAttribute("login_text", index.LOGIN_TEXT);
-        model.addAttribute("redirect_reset", index.RESET_REDIRECT);
-        model.addAttribute("reset_text", index.RESET_TEXT);
-        model.addAttribute("submitText", index.REGISTER_SUBMIT);
-        model.addAttribute("form_name", index.REGISTER_FORM_NAME);
-        model.addAttribute("message", "You have bin PSI HUJU zarejsetrowany");
-        return "index";
+    public String postRegisterController() {
+        return info;
+    }
+
+    @PutMapping("/register")
+    @ResponseStatus(value = CREATED)
+    public void putRegisterController(@RequestBody User user) {
+
+        if (user != null) {
+            LOG.info("user registered " + user.getEmail());
+            userRepository.save(user);
+        }
+        LOG.info("user registered ", user);
     }
 
 

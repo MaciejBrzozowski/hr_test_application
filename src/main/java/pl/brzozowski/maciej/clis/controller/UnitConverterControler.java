@@ -1,40 +1,47 @@
 package pl.brzozowski.maciej.clis.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pl.brzozowski.maciej.clis.entity.UnitsIn;
 import pl.brzozowski.maciej.clis.services.UnitConverter;
 
 import java.util.logging.Logger;
 
+import static java.util.logging.Logger.getLogger;
+import static pl.brzozowski.maciej.clis.configuration.UrlMaping.*;
+
 @RestController
-@RequestMapping(value = "/convert/{unitIn}/to/{unitOut}")
+@RequestMapping(value = BASE_UNIT_CONVERSION_URL)
 public class UnitConverterControler {
 
     @Autowired
     private UnitConverter unitConverter;
     private String response;
     private String errorResponse = "Given units can not be converted";
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private Logger logger = getLogger(this.getClass().getName());
 
-    @GetMapping
+    @GetMapping(UNIT_URL)
     public String returnConversionRateUnits(@PathVariable("unitIn") String unitIn,
                                             @PathVariable("unitOut") String unitOut) {
         String response = unitIn + " " + unitOut;
         return response;
     }
 
-    @GetMapping("/quantity/{quantity:.+}")
+    @GetMapping(UNIT_URL + UNIT_CONVERSION_QUANTITY)
     public String convertUnits(@PathVariable("unitIn") String unitIn,
                                @PathVariable("unitOut") String unitOut,
                                @PathVariable("quantity") double quantity) {
-
         logger.info("unitIn: " + unitIn + "| unitOut: " + unitOut + "| quantity: " + quantity);
         response = unitConverter.getConvertedUnit(quantity, unitIn, unitOut);
         logger.info(response);
+        return response.isEmpty() ? errorResponse : response;
+    }
 
+    @PostMapping
+    public String convertUnitsPostMethod(@RequestBody UnitsIn unitsIn) {
+        logger.info(unitsIn.toString());
+        response = unitConverter.getConvertedUnit(unitsIn.getQuantity(), unitsIn.getUnitIn(), unitsIn.getUnitOut());
+        logger.info(response);
         return response.isEmpty() ? errorResponse : response;
     }
 

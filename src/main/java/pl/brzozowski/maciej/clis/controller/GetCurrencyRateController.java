@@ -9,7 +9,7 @@ import pl.brzozowski.maciej.clis.services.Currency;
 import pl.brzozowski.maciej.clis.services.RequestOut;
 
 @RestController
-@RequestMapping(value = "/currencyIn/{currencyIn}/currencyOut/{currencyOut}")
+@RequestMapping(value = "/auth/currencyIn/{currencyIn}/currencyOut/{currencyOut}")
 public class GetCurrencyRateController {
 
     @Autowired

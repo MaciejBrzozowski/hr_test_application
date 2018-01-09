@@ -2,6 +2,7 @@ package pl.brzozowski.maciej.clis.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pl.brzozowski.maciej.clis.repository.UserRepository;
 import pl.brzozowski.maciej.clis.services.RequestOut;
 import pl.brzozowski.maciej.clis.services.UnitConverter;
 import pl.brzozowski.maciej.clis.utilities.FileSearch;
@@ -44,4 +45,10 @@ public class ApplicationConfiguration {
     public Logger logger() {
         return getLogger("Application logger");
     }
+
+    @Bean
+    public UserRepository userRepository() {
+        return new UserRepository();
+    }
+
 }
