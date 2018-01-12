@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.brzozowski.maciej.clis.entity.UnitsIn;
 import pl.brzozowski.maciej.clis.services.UnitConverter;
 
+import java.math.BigDecimal;
 import java.util.logging.Logger;
 
 import static java.util.logging.Logger.getLogger;
@@ -30,7 +31,7 @@ public class UnitConverterControler {
     @GetMapping(UNIT_URL + UNIT_CONVERSION_QUANTITY)
     public String convertUnits(@PathVariable("unitIn") String unitIn,
                                @PathVariable("unitOut") String unitOut,
-                               @PathVariable("quantity") double quantity) {
+                               @PathVariable("quantity") BigDecimal quantity) {
         logger.info("unitIn: " + unitIn + "| unitOut: " + unitOut + "| quantity: " + quantity);
         response = unitConverter.getConvertedUnit(quantity, unitIn, unitOut);
         logger.info(response);

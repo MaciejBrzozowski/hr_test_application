@@ -22,15 +22,17 @@ public class UserRepository {
     public User save(User user) {
         if (user.getEmail() != null) {
             repository.put(user.getEmail(), user);
+            return read(user.getEmail());
         }
-        return read(user.getEmail());
+        return null;
     }
 
     public User update(User user) {
-        User userRepository = read(user.getEmail());
-        userRepository = user;
-        save(user);
-        return repository.get(user.getEmail());
+        if (read(user.getEmail()) != null) {
+            save(user);
+            return repository.get(user.getEmail());
+        }
+        return null;
     }
 
     public int delete(User user) {

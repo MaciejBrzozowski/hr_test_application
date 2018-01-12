@@ -9,7 +9,7 @@ import spock.lang.Specification
 class UserRepositoryTest extends Specification {
 
     HashMap<String, User> repositoryHasMap = new HashMap()
-    def userRepository
+    UserRepository userRepository
 
 
     User testUser1 = new User("test@test.pl", "rvfsbVSJS", new UserDetails(Lorem.getFirstName(), Lorem.getLastName(), "efwefw", RandomStringUtils.randomAscii(64)))
@@ -43,22 +43,34 @@ class UserRepositoryTest extends Specification {
         repositoryHasMap.containsKey(testUser3.getEmail())
 
     }
-//
-//    def "test update"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
-//
-//    def "test delete"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
+
+    def "test update"() {
+        given:
+        def repositorySize = repositoryHasMap.size()
+        User updateUser = new User(testUser2.getEmail(), "123456789", new UserDetails(Lorem.getFirstName(), Lorem.getLastName(), "258369", RandomStringUtils.randomAscii(64)))
+        when:
+        userRepository.update(updateUser)
+        then:
+        repositorySize == repositoryHasMap.size()
+        repositoryHasMap.get(testUser2.getEmail()).getPassword() == updateUser.getPassword()
+        repositoryHasMap.get(testUser2.getEmail()).getUserDetails().getToken() == updateUser.getUserDetails().getToken()
+        repositoryHasMap.get(testUser2.getEmail()).getUserDetails().getFirstName() == updateUser.getUserDetails().getFirstName()
+        repositoryHasMap.get(testUser2.getEmail()).getUserDetails().getLastName() == updateUser.getUserDetails().getLastName()
+        repositoryHasMap.get(testUser2.getEmail()).getUserDetails().getToken() != testUser2.getUserDetails().getToken()
+        repositoryHasMap.get(testUser2.getEmail()).getUserDetails().getFirstName() != testUser2.getUserDetails().getFirstName()
+        repositoryHasMap.get(testUser2.getEmail()).getUserDetails().getLastName() != testUser2.getUserDetails().getLastName()
+
+
+    }
+
+    def "should delete user from database"() {
+        given:
+        def repositorySize = repositoryHasMap.size()
+        when:
+        userRepository.delete(testUser3)
+        then:
+        repositorySize - 1 == repositoryHasMap.size()
+        !repositoryHasMap.containsKey(testUser3.getEmail())
+        !repositoryHasMap.containsValue(testUser3)
+    }
 }

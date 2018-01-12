@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -13,7 +15,7 @@ public class UnitsIn {
 
     private String unitIn;
     private String unitOut;
-    private double quantity;
+    private BigDecimal quantity;
 
     @Override
     public String toString() {

@@ -45,10 +45,10 @@ public class UnitConversionObject {
         return this;
     }
 
-    public BigDecimal convertToDouble(BigDecimal quantity) {
+    public BigDecimal convertToNumber(BigDecimal quantity) {
         this.quantity = quantity;
         return this.result = quantity.multiply(BigDecimal.valueOf(this.factor))
-                                     .add(BigDecimal.valueOf(this.delta));
+                .add(BigDecimal.valueOf(this.delta));
     }
 
     public String convertToString(BigDecimal quantity) {

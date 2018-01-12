@@ -23,7 +23,7 @@ public class UnitConverter {
     private File file;
     private UnitConversionObject unitConversionObject;
     private Logger logger = Logger.getLogger(this.getClass()
-                                                 .getSimpleName());
+            .getSimpleName());
 
     public String getConvertedUnit(BigDecimal quantity, String unitIn, String unitOut) {
         convertUnit(unitIn, unitOut);
@@ -32,7 +32,7 @@ public class UnitConverter {
 
     public UnitConversionObject getConvertedUnitAsObject(BigDecimal quantity, String unitIn, String unitOut) {
         convertUnit(unitIn, unitOut);
-        unitConversionObject.convertToDouble(quantity);
+        unitConversionObject.convertToNumber(quantity);
         return unitConversionObject;
     }
 
