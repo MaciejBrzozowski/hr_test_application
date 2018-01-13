@@ -7,9 +7,5 @@ public class StringCalculations {
             return Double.valueOf(equation);
         }
         return (Double.valueOf(equation.split("/")[0])) / (Double.valueOf(equation.split("/")[1]));
-
-
     }
-
-
 }

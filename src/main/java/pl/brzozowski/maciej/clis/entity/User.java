@@ -1,9 +1,10 @@
 package pl.brzozowski.maciej.clis.entity;
 
-public class User {
+public class User extends UserIn {
 
     private String email;
     private String password;
+    private String token;
     private UserDetails userDetails;
 
     public User() {
@@ -13,6 +14,11 @@ public class User {
         this.email = email;
         this.password = password;
         this.userDetails = userDetails;
+    }
+
+    public User(UserIn userIn) {
+        this.email = userIn.getEmail();
+        this.password = userIn.getPassword();
     }
 
     public String getEmail() {
@@ -37,5 +43,13 @@ public class User {
 
     public void setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

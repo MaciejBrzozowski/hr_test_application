@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.controller.PasswordReset;
+package pl.brzozowski.maciej.clis.controller.unathorized;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Controller;

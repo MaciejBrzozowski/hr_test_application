@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.controller;
+package pl.brzozowski.maciej.clis.controller.authorized;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +24,8 @@ public class UnitConverterControler {
     @GetMapping(UNIT_URL)
     public String returnConversionRateUnits(@PathVariable("unitIn") String unitIn,
                                             @PathVariable("unitOut") String unitOut) {
-        String response = unitIn + " " + unitOut;
-        return response;
+        response = unitConverter.getConvertedUnit(BigDecimal.valueOf(1), unitIn, unitOut);
+        return response.isEmpty() ? errorResponse : response;
     }
 
     @GetMapping(UNIT_URL + UNIT_CONVERSION_QUANTITY)

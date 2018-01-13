@@ -5,9 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import pl.brzozowski.maciej.clis.repository.UserRepository;
 import pl.brzozowski.maciej.clis.services.RequestOut;
 import pl.brzozowski.maciej.clis.services.UnitConverter;
-import pl.brzozowski.maciej.clis.utilities.FileSearch;
-import pl.brzozowski.maciej.clis.utilities.ReadDataFile;
-import pl.brzozowski.maciej.clis.utilities.UnitConversionObject;
+import pl.brzozowski.maciej.clis.utilities.*;
 
 import java.util.logging.Logger;
 
@@ -51,4 +49,18 @@ public class ApplicationConfiguration {
         return new UserRepository();
     }
 
+    @Bean
+    public TokenGenerator tokenGenerator() {
+        return new TokenGenerator();
+    }
+
+    @Bean
+    public TokenDetails tokenDetails() {
+        return new TokenDetails();
+    }
+
+    @Bean
+    public TokenValidator tokenValidator() {
+        return new TokenValidator();
+    }
 }

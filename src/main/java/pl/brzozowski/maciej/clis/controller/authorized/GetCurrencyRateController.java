@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.controller;
+package pl.brzozowski.maciej.clis.controller.authorized;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

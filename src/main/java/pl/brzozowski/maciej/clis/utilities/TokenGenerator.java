@@ -37,7 +37,7 @@ public class TokenGenerator {
     }
 
     public User updateTokenForUser(User user) {
-        user.getUserDetails().setToken(getToken(user));
+        user.setToken(getToken(user));
         return user;
     }
 

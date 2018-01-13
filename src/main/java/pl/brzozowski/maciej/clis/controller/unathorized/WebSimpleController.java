@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.controller;
+package pl.brzozowski.maciej.clis.controller.unathorized;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

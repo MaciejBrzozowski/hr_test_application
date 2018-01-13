@@ -6,16 +6,14 @@ public class UserDetails {
     private String firstName;
     private String lastName;
     private String avatar;
-    private String token;
 
     public UserDetails() {
     }
 
-    public UserDetails(String firstName, String lastName, String avatar, String token) {
+    public UserDetails(String firstName, String lastName, String avatar) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.avatar = avatar;
-        this.token = token;
     }
 
     public String getFirstName() {
@@ -40,14 +38,6 @@ public class UserDetails {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }
 
