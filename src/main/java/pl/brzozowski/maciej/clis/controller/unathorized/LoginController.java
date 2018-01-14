@@ -5,6 +5,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.brzozowski.maciej.clis.entity.UserIn;
 
@@ -30,7 +31,7 @@ public class LoginController {
 
 
     @GetMapping(LOGIN_HTML_PAGE)
-    public String loginHtml(UserIn model) {
+    public String loginHtml(@RequestBody UserIn userIn) {
 
         return "index";
     }

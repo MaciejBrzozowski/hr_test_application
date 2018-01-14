@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class WebSimpleController {
 
+    public static final String BASE_TEXT = "<h1>It's alive!</h1>";
+
     @GetMapping("/")
     public String baseController() {
-        return "<h1>It's alive!</h1>";
+        ;
+        return BASE_TEXT;
     }
 
 }

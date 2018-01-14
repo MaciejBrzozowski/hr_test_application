@@ -55,7 +55,7 @@ public class UnitConverterControlerTest {
     }
 
     @Test
-    public void shouldReturn200WhenBasicAuthIsAddedInHeader() throws Exception {
+    public void shouldReturn200WhenBasicAuthIsAddedInHeaderAndTokenIsValid() throws Exception {
         this.mockMvc.perform(get("/auth/convert/meters/to/badUnit").with(user("user").password("password").roles("USER"))).andDo(print())
                 .andExpect(MockMvcResultMatchers.status().is(BAD_GATEWAY.value()));
     }

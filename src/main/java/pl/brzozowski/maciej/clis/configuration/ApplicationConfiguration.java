@@ -3,6 +3,7 @@ package pl.brzozowski.maciej.clis.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.brzozowski.maciej.clis.repository.UserRepository;
+import pl.brzozowski.maciej.clis.services.RegisterService;
 import pl.brzozowski.maciej.clis.services.RequestOut;
 import pl.brzozowski.maciej.clis.services.UnitConverter;
 import pl.brzozowski.maciej.clis.utilities.*;
@@ -62,5 +63,10 @@ public class ApplicationConfiguration {
     @Bean
     public TokenValidator tokenValidator() {
         return new TokenValidator();
+    }
+
+    @Bean
+    public RegisterService registerService() {
+        return new RegisterService();
     }
 }
