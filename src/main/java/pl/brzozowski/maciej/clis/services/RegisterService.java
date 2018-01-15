@@ -3,6 +3,7 @@ package pl.brzozowski.maciej.clis.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.brzozowski.maciej.clis.entity.User;
 import pl.brzozowski.maciej.clis.entity.UserIn;
+import pl.brzozowski.maciej.clis.entity.UserOut;
 import pl.brzozowski.maciej.clis.exceptions.UserAlreadyExistsException;
 import pl.brzozowski.maciej.clis.repository.UserRepository;
 
@@ -14,7 +15,7 @@ public class RegisterService {
     private UserRepository userRepository;
     private User user;
 
-    public User registerUserInDatabase(UserIn userIn) {
+    public UserOut registerUserInDatabase(UserIn userIn) {
         if (userRepository.read(userIn.getEmail()) != null) {
             throw new UserAlreadyExistsException("User " + userIn.getEmail() + " already exists");
         }
@@ -23,9 +24,10 @@ public class RegisterService {
             user = new User(userIn);
             userRepository.save(user);
             LOG.info("user registered ", user.toString());
+            user.setPassword("***");
         }
 
-        return this.user;
+        return new UserOut(user);
     }
 
 }

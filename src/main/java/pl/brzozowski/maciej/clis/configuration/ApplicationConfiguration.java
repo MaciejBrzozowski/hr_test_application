@@ -3,6 +3,7 @@ package pl.brzozowski.maciej.clis.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.brzozowski.maciej.clis.repository.UserRepository;
+import pl.brzozowski.maciej.clis.services.LoginService;
 import pl.brzozowski.maciej.clis.services.RegisterService;
 import pl.brzozowski.maciej.clis.services.RequestOut;
 import pl.brzozowski.maciej.clis.services.UnitConverter;
@@ -68,5 +69,10 @@ public class ApplicationConfiguration {
     @Bean
     public RegisterService registerService() {
         return new RegisterService();
+    }
+
+    @Bean
+    public LoginService loginService() {
+        return new LoginService();
     }
 }
