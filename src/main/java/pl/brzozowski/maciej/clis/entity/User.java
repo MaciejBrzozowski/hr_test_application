@@ -1,6 +1,6 @@
 package pl.brzozowski.maciej.clis.entity;
 
-public class User extends UserIn {
+public class User {
 
     private String email;
     private String password;

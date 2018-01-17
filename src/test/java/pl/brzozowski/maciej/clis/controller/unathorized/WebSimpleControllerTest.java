@@ -14,7 +14,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.brzozowski.maciej.clis.configuration.ApplicationConfiguration;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static pl.brzozowski.maciej.clis.controller.unathorized.WebSimpleController.BASE_TEXT;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,7 +34,15 @@ public class WebSimpleControllerTest {
 
     @Test
     public void shouldReturnTextWhenBasicEndpointCall() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/register").with(user("user").password("password").roles("USER"))).andExpect(MockMvcResultMatchers.status().is2xxSuccessful()).
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/register")
+                                                   .with(httpBasic("user", "password"))
+                                                   .contentType("aplication/json"))
+                    .andDo(print())
+                    .andExpect
+                            (MockMvcResultMatchers.status()
+                                                  .is2xxSuccessful
+                                                          ())
+                    .
                 andExpect(MockMvcResultMatchers.content().string(BASE_TEXT));
     }
 

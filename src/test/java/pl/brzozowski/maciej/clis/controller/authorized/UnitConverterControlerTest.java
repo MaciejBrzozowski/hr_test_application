@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.controller;
+package pl.brzozowski.maciej.clis.controller.authorized;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,7 +19,7 @@ import javax.servlet.ServletContext;
 
 import static org.springframework.http.HttpStatus.BAD_GATEWAY;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -56,8 +56,10 @@ public class UnitConverterControlerTest {
 
     @Test
     public void shouldReturn200WhenBasicAuthIsAddedInHeaderAndTokenIsValid() throws Exception {
-        this.mockMvc.perform(get("/auth/convert/meters/to/badUnit").with(user("user").password("password").roles("USER"))).andDo(print())
-                .andExpect(MockMvcResultMatchers.status().is(BAD_GATEWAY.value()));
+        this.mockMvc.perform(get("/auth/convert/meters/to/badUnit").with(httpBasic("user", "password")))
+                    .andDo(print())
+                    .andExpect(MockMvcResultMatchers.status()
+                                                    .is(BAD_GATEWAY.value()));
     }
 
 }
