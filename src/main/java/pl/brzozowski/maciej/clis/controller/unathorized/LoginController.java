@@ -1,44 +1,27 @@
 package pl.brzozowski.maciej.clis.controller.unathorized;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.brzozowski.maciej.clis.entity.UserIn;
+import pl.brzozowski.maciej.clis.entity.UserOut;
+import pl.brzozowski.maciej.clis.services.LoginService;
 
 import static pl.brzozowski.maciej.clis.configuration.UrlMaping.LOGIN;
-import static pl.brzozowski.maciej.clis.configuration.UrlMaping.LOGIN_HTML_PAGE;
 
-@Controller
+@RestController
 @EnableWebSecurity
 @RequestMapping(LOGIN)
 public class LoginController {
 
-
-    @GetMapping
-    public String login(UserIn userIn) {
-
-        return "index";
-    }
+    @Autowired
+    private LoginService loginService;
 
     @PostMapping
-    public String postLogin(HttpServletRequest request) {
-        return "index";
+    public UserOut login(@RequestBody UserIn userIn) {
+        return loginService.loginUser(userIn);
     }
-
-
-    @GetMapping(LOGIN_HTML_PAGE)
-    public String loginHtml(@RequestBody UserIn userIn) {
-
-        return "index";
-    }
-
-    @PostMapping(LOGIN_HTML_PAGE)
-    public String postLoginHtml(HttpServletRequest request) {
-        return "index";
-    }
-
 }

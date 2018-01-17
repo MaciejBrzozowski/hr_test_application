@@ -26,24 +26,29 @@ public class TokenGenerator {
         tokenDetails = new TokenDetails(user.getEmail(), new Date().getTime());
     }
 
-    public String getToken() {
+    public String generateNewToken() {
         String gsonString = gson.toJson(this.tokenDetails);
         return base64.encodeToString(gsonString.getBytes());
     }
 
-    public String getToken(User user) {
-        this.tokenDetails = new TokenDetails(user.getEmail(), new Date().getTime());
-        return getToken();
+    public String generateNewToken(User user) {
+        tokenDetails = new TokenDetails(user.getEmail(), new Date().getTime());
+        String gsonString = gson.toJson(this.tokenDetails);
+        return base64.encodeToString(gsonString.getBytes());
     }
 
     public User updateTokenForUser(User user) {
-        user.setToken(getToken(user));
+        user.setToken(generateNewToken(user));
         return user;
     }
 
     public boolean isTokenValid(String token) {
-        String tokenDetailsJson = new String(Base64.getDecoder().decode(token));
-        tokenDetails = new Gson().fromJson(tokenDetailsJson, TokenDetails.class);
-        return tokenDetails.isTokenValid(VALID_FOR_MINUTS);
+        boolean isTokenValid = false;
+        if (token != null) {
+            String tokenDetailsJson = new String(Base64.getDecoder().decode(token));
+            tokenDetails = new Gson().fromJson(tokenDetailsJson, TokenDetails.class);
+            isTokenValid = tokenDetails.isTokenValid(VALID_FOR_MINUTS);
+        }
+        return isTokenValid;
     }
 }

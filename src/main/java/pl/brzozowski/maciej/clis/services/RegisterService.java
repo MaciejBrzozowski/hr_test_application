@@ -19,14 +19,10 @@ public class RegisterService {
         if (userRepository.read(userIn.getEmail()) != null) {
             throw new UserAlreadyExistsException("User " + userIn.getEmail() + " already exists");
         }
-        if (userIn != null) {
-            LOG.info("user registered " + userIn.getEmail());
-            user = new User(userIn);
-            userRepository.save(user);
-            LOG.info("user registered ", user.toString());
-            user.setPassword("***");
-        }
-
+        LOG.info("user registered " + userIn.getEmail());
+        user = new User(userIn);
+        userRepository.save(user);
+        LOG.info("user registered ", user.toString());
         return new UserOut(user);
     }
 

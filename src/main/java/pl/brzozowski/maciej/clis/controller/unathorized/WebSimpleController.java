@@ -10,7 +10,6 @@ public class WebSimpleController {
 
     @GetMapping("/")
     public String baseController() {
-        ;
         return BASE_TEXT;
     }
 
