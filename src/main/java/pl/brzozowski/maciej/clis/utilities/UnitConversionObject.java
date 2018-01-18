@@ -1,5 +1,6 @@
 package pl.brzozowski.maciej.clis.utilities;
 
+import lombok.Getter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
@@ -7,7 +8,7 @@ import java.math.BigDecimal;
 import static java.lang.Double.valueOf;
 import static pl.brzozowski.maciej.clis.utilities.StringCalculations.divide;
 
-
+@Getter
 @ToString
 public class UnitConversionObject {
     private String conversionType;
@@ -52,6 +53,6 @@ public class UnitConversionObject {
     }
 
     public String convertToString(BigDecimal quantity) {
-        return String.valueOf(quantity);
+        return String.valueOf(convertToNumber(quantity));
     }
 }

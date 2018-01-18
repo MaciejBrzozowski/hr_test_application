@@ -1,6 +1,7 @@
 package pl.brzozowski.maciej.clis.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import pl.brzozowski.maciej.clis.utilities.TokenValidator;
@@ -8,6 +9,7 @@ import pl.brzozowski.maciej.clis.utilities.TokenValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Configuration
 public class TokenHandlerInterceptor implements HandlerInterceptor {
 
     @Autowired
@@ -15,7 +17,7 @@ public class TokenHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        return (httpServletRequest.getContextPath().startsWith("/auth/") && tokenValidator.validateTokenForUser(httpServletRequest)) || (httpServletRequest.getContextPath().matches("/") || httpServletRequest.getContextPath().matches("/register"));
+        return (httpServletRequest.getServletPath().startsWith("/auth/") && tokenValidator.validateTokenForUser(httpServletRequest)) || (httpServletRequest.getServletPath().matches("/register"));
     }
 
     @Override

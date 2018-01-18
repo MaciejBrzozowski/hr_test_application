@@ -3,7 +3,9 @@ package pl.brzozowski.maciej.clis.controller.authorized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.brzozowski.maciej.clis.entity.UnitsIn;
+import pl.brzozowski.maciej.clis.entity.UnitsOut;
 import pl.brzozowski.maciej.clis.services.UnitConverter;
+import pl.brzozowski.maciej.clis.utilities.UnitConversionObject;
 
 import java.math.BigDecimal;
 import java.util.logging.Logger;
@@ -18,6 +20,7 @@ public class UnitConverterControler {
     @Autowired
     private UnitConverter unitConverter;
     private String response;
+    private UnitConversionObject unitConversionObject;
     private String errorResponse = "Given units can not be converted";
     private Logger logger = getLogger(this.getClass().getName());
 
@@ -39,11 +42,11 @@ public class UnitConverterControler {
     }
 
     @PostMapping
-    public String convertUnitsPostMethod(@RequestBody UnitsIn unitsIn) {
+    public UnitsOut convertUnitsPostMethod(@RequestBody UnitsIn unitsIn) {
         logger.info(unitsIn.toString());
-        response = unitConverter.getConvertedUnit(unitsIn.getQuantity(), unitsIn.getUnitIn(), unitsIn.getUnitOut());
-        logger.info(response);
-        return response.isEmpty() ? errorResponse : response;
+        unitConversionObject = unitConverter.getConvertedUnitAsObject(unitsIn.getQuantity(), unitsIn.getUnitIn(), unitsIn.getUnitOut());
+        logger.info(unitConversionObject.getResult().toString());
+        return new UnitsOut(unitConversionObject);
     }
 
 }
