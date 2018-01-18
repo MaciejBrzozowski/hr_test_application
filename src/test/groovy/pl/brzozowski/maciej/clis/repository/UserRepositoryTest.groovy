@@ -12,10 +12,10 @@ class UserRepositoryTest extends Specification {
     UserRepository userRepository
 
 
-    User testUser1 = new User("test@test.pl", "rvfsbVSJS", new UserDetails(Lorem.getFirstName(), Lorem.getLastName(), "efwefw", RandomStringUtils.randomAscii(64)))
-    User testUser2 = new User("test@123.pl", "frewreg", new UserDetails(Lorem.getFirstName(), Lorem.getLastName(), "12341", RandomStringUtils.randomAscii(64)))
-    User testUser3 = new User("test@321.pl", "vgcw233rfe", new UserDetails(Lorem.getFirstName(), Lorem.getLastName(), "3edefw", RandomStringUtils.randomAscii(64)))
-    User testUser4 = new User("efwft@321.pl", "vgcwwefe", new UserDetails(Lorem.getFirstName(), Lorem.getLastName(), "3ed2121fw", RandomStringUtils.randomAscii(64)))
+    User testUser1 = new User("test@test.pl", "rvfsbVSJS", new UserDetails(Lorem.getFirstName(), Lorem.getLastName(), "efwefw"))
+    User testUser2 = new User("test@123.pl", "frewreg", new UserDetails(Lorem.getFirstName(), Lorem.getLastName(), "12341"))
+    User testUser3 = new User("test@321.pl", "vgcw233rfe", new UserDetails(Lorem.getFirstName(), Lorem.getLastName(), "3edefw"))
+    User testUser4 = new User("efwft@321.pl", "vgcwwefe", new UserDetails(Lorem.getFirstName(), Lorem.getLastName(), "3ed2121fw"))
 
     def setup() {
 
@@ -47,16 +47,14 @@ class UserRepositoryTest extends Specification {
     def "test update"() {
         given:
         def repositorySize = repositoryHasMap.size()
-        User updateUser = new User(testUser2.getEmail(), "123456789", new UserDetails(Lorem.getFirstName(), Lorem.getLastName(), "258369", RandomStringUtils.randomAscii(64)))
+        User updateUser = new User(testUser2.getEmail(), "123456789", new UserDetails(Lorem.getFirstName(), Lorem.getLastName(), "258369"))
         when:
         userRepository.update(updateUser)
         then:
         repositorySize == repositoryHasMap.size()
         repositoryHasMap.get(testUser2.getEmail()).getPassword() == updateUser.getPassword()
-        repositoryHasMap.get(testUser2.getEmail()).getUserDetails().getToken() == updateUser.getUserDetails().getToken()
         repositoryHasMap.get(testUser2.getEmail()).getUserDetails().getFirstName() == updateUser.getUserDetails().getFirstName()
         repositoryHasMap.get(testUser2.getEmail()).getUserDetails().getLastName() == updateUser.getUserDetails().getLastName()
-        repositoryHasMap.get(testUser2.getEmail()).getUserDetails().getToken() != testUser2.getUserDetails().getToken()
         repositoryHasMap.get(testUser2.getEmail()).getUserDetails().getFirstName() != testUser2.getUserDetails().getFirstName()
         repositoryHasMap.get(testUser2.getEmail()).getUserDetails().getLastName() != testUser2.getUserDetails().getLastName()
 

@@ -5,27 +5,26 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockServletContext;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import pl.brzozowski.maciej.clis.configuration.ApplicationConfiguration;
 
 import javax.servlet.ServletContext;
 
-import static org.springframework.http.HttpStatus.BAD_GATEWAY;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ApplicationConfiguration.class})
-@WebAppConfiguration
+@AutoConfigureMockMvc
+@SpringBootTest
 public class UnitConverterControlerTest {
 
     @Autowired
@@ -49,9 +48,7 @@ public class UnitConverterControlerTest {
     @Test
     public void shouldReturn404WhenNoBasicAuthInHeader() throws Exception {
         this.mockMvc.perform(get("/auth/convert/meters/to/badUnit")).andDo(print())
-
-                .andExpect(MockMvcResultMatchers.status().is(NOT_FOUND.value()));
-
+                .andExpect(MockMvcResultMatchers.status().is(UNAUTHORIZED.value()));
     }
 
     @Test
@@ -59,7 +56,7 @@ public class UnitConverterControlerTest {
         this.mockMvc.perform(get("/auth/convert/meters/to/badUnit").with(httpBasic("user", "password")))
                     .andDo(print())
                     .andExpect(MockMvcResultMatchers.status()
-                                                    .is(BAD_GATEWAY.value()));
+                            .is(OK.value()));
     }
 
 }
