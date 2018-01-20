@@ -52,4 +52,13 @@ public class User {
     public void setToken(String token) {
         this.token = token;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + this.email + '\'' +
+                ", password= *" +
+                ", token='" + this.token + '\'' +
+                '}';
+    }
 }

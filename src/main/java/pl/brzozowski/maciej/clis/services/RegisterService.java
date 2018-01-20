@@ -1,5 +1,7 @@
 package pl.brzozowski.maciej.clis.services;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.brzozowski.maciej.clis.entity.User;
 import pl.brzozowski.maciej.clis.entity.UserIn;
@@ -7,8 +9,11 @@ import pl.brzozowski.maciej.clis.entity.UserOut;
 import pl.brzozowski.maciej.clis.exceptions.UserAlreadyExistsException;
 import pl.brzozowski.maciej.clis.repository.UserRepository;
 
+import static lombok.AccessLevel.PACKAGE;
 import static pl.brzozowski.maciej.clis.ClisApplication.LOG;
 
+@AllArgsConstructor(access = PACKAGE)
+@NoArgsConstructor
 public class RegisterService {
 
     @Autowired

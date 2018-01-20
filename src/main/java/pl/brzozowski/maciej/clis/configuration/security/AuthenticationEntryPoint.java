@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.security;
+package pl.brzozowski.maciej.clis.configuration.security;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;

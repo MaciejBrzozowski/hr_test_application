@@ -39,5 +39,6 @@ public class UserDetails {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
 }
 

@@ -14,26 +14,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static pl.brzozowski.maciej.clis.configuration.UrlMaping.REGISTER;
 
 
 @RestController
 @EnableWebSecurity
-@RequestMapping("/register")
+@RequestMapping(REGISTER)
 public class RegisterController {
 
-    private String info = "Use put mapping to add new user";
+    static final String INFO = "Use put mapping to add new user";
     private User user;
     @Autowired
     private RegisterService registerService;
 
     @GetMapping
     public String registerController() {
-        return info;
+        return INFO;
     }
 
     @PostMapping
     public String postRegisterController() {
-        return info;
+        return INFO;
     }
 
     @PutMapping

@@ -7,4 +7,5 @@ public class UrlMaping {
     public static final String UNIT_CONVERSION_QUANTITY = "/quantity/{quantity:.+}";
     public static final String LOGIN = "/login";
     public static final String LOGIN_HTML_PAGE = "/mainpage";
+    public static final String REGISTER = "/register";
 }

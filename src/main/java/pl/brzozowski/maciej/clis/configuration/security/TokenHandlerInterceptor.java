@@ -1,4 +1,4 @@
-package pl.brzozowski.maciej.clis.security;
+package pl.brzozowski.maciej.clis.configuration.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
