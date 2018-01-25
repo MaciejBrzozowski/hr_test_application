@@ -6,30 +6,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.brzozowski.maciej.clis.services.Currency;
-import pl.brzozowski.maciej.clis.services.RequestOut;
+import pl.brzozowski.maciej.clis.services.CurrencyService;
 
 @RestController
-@RequestMapping(value = "/auth/currencyIn/{currencyIn}/currencyOut/{currencyOut}")
+@RequestMapping(value = "/auth")
 public class GetCurrencyRateController {
 
     @Autowired
-    private RequestOut requestOut;
+    private CurrencyService currencyService;
+    private final String CURRENCY_URL = "/currencyIn/{currencyIn}/currencyOut/{currencyOut}";
     private final String BASE_URL_AMOUNT = "/amount/{amount:.+}";
 
 
-    @GetMapping
+    @GetMapping(CURRENCY_URL)
     public String getCurrencyRate(@PathVariable("currencyIn") Currency currencyIn, @PathVariable("currencyOut") Currency currencyOut) {
-
-        return String.valueOf(requestOut.getCurrencyRate(currencyIn, currencyOut));
+        return String.valueOf(currencyService.getCurrencyRate(currencyIn, currencyOut));
     }
 
-    @GetMapping(BASE_URL_AMOUNT)
+    @GetMapping(CURRENCY_URL + BASE_URL_AMOUNT)
     public String calculateExchange(@PathVariable("currencyIn") Currency currencyIn,
                                     @PathVariable("currencyOut") Currency currencyOut,
                                     @PathVariable("amount") double amount) {
+        return String.valueOf(amount * currencyService.getCurrencyRate(currencyIn, currencyOut));
+    }
 
-
-        return String.valueOf(amount * requestOut.getCurrencyRate(currencyIn, currencyOut));
+    @GetMapping("/currency/help")
+    public Currency[] getAvailableCurrency() {
+        return Currency.values();
     }
 
 

@@ -1,12 +1,12 @@
 package pl.brzozowski.maciej.clis.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pl.brzozowski.maciej.clis.configuration.security.AuthenticationEntryPoint;
+import pl.brzozowski.maciej.clis.configuration.security.SecurityConfiguration;
+import pl.brzozowski.maciej.clis.configuration.security.TokenHandlerInterceptor;
 import pl.brzozowski.maciej.clis.repository.UserRepository;
-import pl.brzozowski.maciej.clis.services.LoginService;
-import pl.brzozowski.maciej.clis.services.RegisterService;
-import pl.brzozowski.maciej.clis.services.RequestOut;
-import pl.brzozowski.maciej.clis.services.UnitConverter;
 import pl.brzozowski.maciej.clis.utilities.*;
 
 import java.util.logging.Logger;
@@ -16,15 +16,11 @@ import static java.util.logging.Logger.getLogger;
 @Configuration
 public class ApplicationConfiguration {
 
-    @Bean
-    public RequestOut requestOut() {
-        return new RequestOut();
-    }
+    @Autowired
+    public TokenHandlerInterceptor tokenHandlerInterceptor;
 
-    @Bean
-    public UnitConverter unitConverter() {
-        return new UnitConverter();
-    }
+    @Autowired
+    public SecurityConfiguration securityConfiguration;
 
     @Bean
     public UnitConversionObject unitConversionObject() {
@@ -67,12 +63,12 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public RegisterService registerService() {
-        return new RegisterService();
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return new AuthenticationEntryPoint();
     }
 
     @Bean
-    public LoginService loginService() {
-        return new LoginService();
+    public ResetTokenGenerator resetTokenGenerator() {
+        return new ResetTokenGenerator();
     }
 }

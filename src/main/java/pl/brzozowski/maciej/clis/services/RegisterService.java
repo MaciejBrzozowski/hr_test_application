@@ -3,6 +3,7 @@ package pl.brzozowski.maciej.clis.services;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.brzozowski.maciej.clis.entity.User;
 import pl.brzozowski.maciej.clis.entity.UserIn;
 import pl.brzozowski.maciej.clis.entity.UserOut;
@@ -12,6 +13,7 @@ import pl.brzozowski.maciej.clis.repository.UserRepository;
 import static lombok.AccessLevel.PACKAGE;
 import static pl.brzozowski.maciej.clis.ClisApplication.LOG;
 
+@Service
 @AllArgsConstructor(access = PACKAGE)
 @NoArgsConstructor
 public class RegisterService {

@@ -5,15 +5,16 @@ public class UserDetails {
 
     private String firstName;
     private String lastName;
-    private String avatar;
+    private String customData;
+    private String resetPasswordValue;
 
     public UserDetails() {
     }
 
-    public UserDetails(String firstName, String lastName, String avatar) {
+    public UserDetails(String firstName, String lastName, String customData) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.avatar = avatar;
+        this.customData = customData;
     }
 
     public String getFirstName() {
@@ -32,13 +33,21 @@ public class UserDetails {
         this.lastName = lastName;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getCustomData() {
+        return customData;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setCustomData(String customData) {
+        this.customData = customData;
     }
 
+
+    public String getResetPasswordValue() {
+        return this.resetPasswordValue;
+    }
+
+    public void setResetPasswordValue(String resetPasswordValue) {
+        this.resetPasswordValue = resetPasswordValue;
+    }
 }
 

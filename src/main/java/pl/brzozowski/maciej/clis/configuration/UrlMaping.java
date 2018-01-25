@@ -8,4 +8,7 @@ public class UrlMaping {
     public static final String LOGIN = "/login";
     public static final String LOGIN_HTML_PAGE = "/mainpage";
     public static final String REGISTER = "/register";
+    public static final String RESET = "/reset";
+    public static final String TAV = "/token/{token}";
+
 }

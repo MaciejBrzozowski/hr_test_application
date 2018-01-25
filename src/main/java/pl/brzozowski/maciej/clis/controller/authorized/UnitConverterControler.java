@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.brzozowski.maciej.clis.entity.UnitsIn;
 import pl.brzozowski.maciej.clis.entity.UnitsOut;
-import pl.brzozowski.maciej.clis.services.UnitConverter;
+import pl.brzozowski.maciej.clis.services.UnitConverterService;
 import pl.brzozowski.maciej.clis.utilities.UnitConversionObject;
 
 import java.math.BigDecimal;
@@ -18,7 +18,7 @@ import static pl.brzozowski.maciej.clis.configuration.UrlMaping.*;
 public class UnitConverterControler {
 
     @Autowired
-    private UnitConverter unitConverter;
+    private UnitConverterService unitConverterService;
     private String response;
     private UnitConversionObject unitConversionObject;
     private String errorResponse = "Given units can not be converted";
@@ -27,7 +27,7 @@ public class UnitConverterControler {
     @GetMapping(UNIT_URL)
     public String returnConversionRateUnits(@PathVariable("unitIn") String unitIn,
                                             @PathVariable("unitOut") String unitOut) {
-        response = unitConverter.getConvertedUnit(BigDecimal.valueOf(1), unitIn, unitOut);
+        response = unitConverterService.getConvertedUnit(BigDecimal.valueOf(1), unitIn, unitOut);
         return response.isEmpty() ? errorResponse : response;
     }
 
@@ -36,7 +36,7 @@ public class UnitConverterControler {
                                @PathVariable("unitOut") String unitOut,
                                @PathVariable("quantity") BigDecimal quantity) {
         logger.info("unitIn: " + unitIn + "| unitOut: " + unitOut + "| quantity: " + quantity);
-        response = unitConverter.getConvertedUnit(quantity, unitIn, unitOut);
+        response = unitConverterService.getConvertedUnit(quantity, unitIn, unitOut);
         logger.info(response);
         return response.isEmpty() ? errorResponse : response;
     }
@@ -44,7 +44,7 @@ public class UnitConverterControler {
     @PostMapping
     public UnitsOut convertUnitsPostMethod(@RequestBody UnitsIn unitsIn) {
         logger.info(unitsIn.toString());
-        unitConversionObject = unitConverter.getConvertedUnitAsObject(unitsIn.getQuantity(), unitsIn.getUnitIn(), unitsIn.getUnitOut());
+        unitConversionObject = unitConverterService.getConvertedUnitAsObject(unitsIn.getQuantity(), unitsIn.getUnitIn(), unitsIn.getUnitOut());
         logger.info(unitConversionObject.getResult().toString());
         return new UnitsOut(unitConversionObject);
     }

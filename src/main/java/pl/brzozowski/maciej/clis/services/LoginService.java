@@ -1,6 +1,7 @@
 package pl.brzozowski.maciej.clis.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.brzozowski.maciej.clis.entity.User;
 import pl.brzozowski.maciej.clis.entity.UserIn;
 import pl.brzozowski.maciej.clis.entity.UserOut;
@@ -9,6 +10,7 @@ import pl.brzozowski.maciej.clis.utilities.TokenGenerator;
 
 import java.util.logging.Logger;
 
+@Service
 public class LoginService {
 
     @Autowired

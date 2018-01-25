@@ -6,14 +6,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.json.simple.parser.ParseException;
+import org.springframework.stereotype.Service;
 import pl.brzozowski.maciej.clis.utilities.JsonCurrencyParser;
 
 import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
 
+@Service
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestOut {
+public class CurrencyService {
 
     private final String URL = "https://api.fixer.io/latest?base=";
 

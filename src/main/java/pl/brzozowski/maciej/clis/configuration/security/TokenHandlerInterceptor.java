@@ -17,7 +17,7 @@ public class TokenHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        return (httpServletRequest.getServletPath().startsWith("/auth/") && tokenValidator.validateTokenForUser(httpServletRequest)) || (httpServletRequest.getServletPath().matches("/register"));
+        return (httpServletRequest.getServletPath().startsWith("auth/**") && tokenValidator.validateTokenForUser(httpServletRequest)) || (httpServletRequest.getServletPath().matches("register"));
     }
 
     @Override

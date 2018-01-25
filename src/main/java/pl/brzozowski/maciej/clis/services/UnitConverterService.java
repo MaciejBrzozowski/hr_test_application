@@ -3,6 +3,7 @@ package pl.brzozowski.maciej.clis.services;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.brzozowski.maciej.clis.utilities.FileSearch;
 import pl.brzozowski.maciej.clis.utilities.ReadDataFile;
 import pl.brzozowski.maciej.clis.utilities.UnitConversionObject;
@@ -11,9 +12,10 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.util.logging.Logger;
 
+@Service
 @NoArgsConstructor
 @AllArgsConstructor
-public class UnitConverter {
+public class UnitConverterService {
 
     private final String DATA_FILE = "convert";
     @Autowired

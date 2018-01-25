@@ -8,7 +8,7 @@ import java.util.Base64;
 import java.util.Date;
 
 @AllArgsConstructor
-public class TokenGenerator {
+public class TokenGenerator implements GeneratorInterface {
 
     private TokenDetails tokenDetails;
     private Gson gson;

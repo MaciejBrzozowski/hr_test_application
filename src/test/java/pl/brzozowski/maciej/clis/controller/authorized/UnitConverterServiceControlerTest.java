@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @AutoConfigureMockMvc
 @SpringBootTest
-public class UnitConverterControlerTest {
+public class UnitConverterServiceControlerTest {
 
     @Autowired
     private WebApplicationContext context;
