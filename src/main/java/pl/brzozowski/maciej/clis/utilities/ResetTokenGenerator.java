@@ -2,6 +2,7 @@ package pl.brzozowski.maciej.clis.utilities;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import pl.brzozowski.maciej.clis.entity.User;
+import pl.brzozowski.maciej.clis.entity.UserDetails;
 
 public class ResetTokenGenerator implements GeneratorInterface {
 
@@ -14,6 +15,9 @@ public class ResetTokenGenerator implements GeneratorInterface {
 
     @Override
     public String generateNewToken(User user) {
+        if (user.getUserDetails() == null) {
+            user.setUserDetails(new UserDetails());
+        }
         user.getUserDetails().setResetPasswordValue(generateNewToken());
         return user.getUserDetails().getResetPasswordValue();
     }

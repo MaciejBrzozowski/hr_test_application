@@ -1,7 +1,6 @@
 package pl.brzozowski.maciej.clis.controller.unathorized;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
@@ -29,21 +28,18 @@ public class PasswordResetController {
     private UserRepository userRepository;
     @Autowired
     private ResetTokenGenerator resetTokenGenerator;
+    @Autowired
     private EmailSenderService emailSenderService;
     private User user;
     private String title = "Password reset for test web app";
-    private String sender = "Reset password service";
+    private String sender = "Reset_password_service";
     private String link;
-    @Autowired
-    Environment environment;
-
-    String port = environment.getProperty("local.server.port");
 
     @ResponseStatus(value = NO_CONTENT)
     @PostMapping
     public void resetPassword(@RequestBody UserIn userIn) {
         user = checkUser(userIn);
-        link = "localhost:" + port + "//" + RESET + TAV.replace("{token}", resetTokenGenerator.generateNewToken(user));
+        link = "localhost:" + 9010 + RESET + "/token/" + resetTokenGenerator.generateNewToken(user);
         emailSenderService.setTitle(title);
         emailSenderService.setSender(sender);
         emailSenderService.setMessage(EmailTemplate.resetPasswordEmail.replace("{$link}", link));
@@ -60,13 +56,12 @@ public class PasswordResetController {
         }
     }
 
-
     @ExceptionHandler({UserNotExistsException.class})
     void handleBadRequests(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value());
     }
 
-    private User checkUser(@RequestBody UserIn userIn) {
+    private User checkUser(UserIn userIn) {
         User user = userRepository.read(userIn.getEmail());
         if (user == null) {
             throw new UserNotExistsException("User " + userIn.getEmail() + " is not registered");

@@ -1,7 +1,7 @@
 package pl.brzozowski.maciej.clis.services;
 
+import lombok.Data;
 import org.springframework.stereotype.Service;
-
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -9,6 +9,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 @Service
+@Data
 public class EmailSenderService {
 
     private String sender;
@@ -17,7 +18,6 @@ public class EmailSenderService {
 
     private final String username = "webapi.java@gmail.com";
     private final String password = "webAPIjava1";
-
 
     public void sendStandardEmail(String receiver) {
         sendEmail(this.sender, receiver, this.title, this.message);
@@ -53,27 +53,4 @@ public class EmailSenderService {
         }
     }
 
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

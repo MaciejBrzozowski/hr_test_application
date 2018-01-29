@@ -71,4 +71,5 @@ public class ApplicationConfiguration {
     public ResetTokenGenerator resetTokenGenerator() {
         return new ResetTokenGenerator();
     }
+
 }
