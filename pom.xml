@@ -23,9 +23,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <powerMockVersion>1.6.4</powerMockVersion>
+        <powerMockVersion>1.7.3</powerMockVersion>
         <unirest-java-version>1.4.9</unirest-java-version>
-        <mockito-version>1.10.19</mockito-version>
+        <mockito-version>2.8.9</mockito-version>
     </properties>
 
     <dependencies>
@@ -89,15 +89,8 @@
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <artifactId>mockito-core</artifactId>
             <version>${mockito-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-mockito-release-full</artifactId>
-            <version>${powerMockVersion}</version>
-            <type>pom</type>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -114,7 +107,7 @@
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito2</artifactId>
-            <version>${powerMockVersion}</version>
+            <version>1.7.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>

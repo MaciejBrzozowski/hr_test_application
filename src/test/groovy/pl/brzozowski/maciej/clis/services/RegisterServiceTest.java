@@ -8,11 +8,11 @@ import pl.brzozowski.maciej.clis.entity.UserOut;
 import pl.brzozowski.maciej.clis.exceptions.UserAlreadyExistsException;
 import pl.brzozowski.maciej.clis.repository.UserRepository;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
-import static org.testng.AssertJUnit.assertEquals;
 
 public class RegisterServiceTest {
 

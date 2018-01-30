@@ -1,6 +1,8 @@
 package pl.brzozowski.maciej.clis.services;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -12,12 +14,11 @@ import java.util.Properties;
 @Data
 public class EmailSenderService {
 
+    @Autowired
+    private Environment environment;
     private String sender;
     private String title;
     private String message;
-
-    private final String username = "webapi.java@gmail.com";
-    private final String password = "webAPIjava1";
 
     public void sendStandardEmail(String receiver) {
         sendEmail(this.sender, receiver, this.title, this.message);
@@ -33,7 +34,7 @@ public class EmailSenderService {
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
+                        return new PasswordAuthentication(environment.getRequiredProperty("emailAddress"), environment.getProperty("emailPassword"));
                     }
                 });
 

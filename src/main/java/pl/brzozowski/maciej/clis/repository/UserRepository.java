@@ -21,8 +21,7 @@ public class UserRepository {
 
     public User save(User user) {
         if (user.getEmail() != null) {
-            repository.put(user.getEmail(), user);
-            return read(user.getEmail());
+            return repository.put(user.getEmail(), user);
         }
         return null;
     }

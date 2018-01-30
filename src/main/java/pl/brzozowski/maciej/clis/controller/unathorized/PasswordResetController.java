@@ -1,6 +1,7 @@
 package pl.brzozowski.maciej.clis.controller.unathorized;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,8 @@ import static pl.brzozowski.maciej.clis.configuration.UrlMaping.TAV;
 public class PasswordResetController {
 
     @Autowired
+    private Environment environment;
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private ResetTokenGenerator resetTokenGenerator;
@@ -39,7 +42,7 @@ public class PasswordResetController {
     @PostMapping
     public void resetPassword(@RequestBody UserIn userIn) {
         user = checkUser(userIn);
-        link = "localhost:" + 9010 + RESET + "/token/" + resetTokenGenerator.generateNewToken(user);
+        link = "localhost:" + environment.getProperty("server.port") + RESET + "/token/" + resetTokenGenerator.generateNewToken(user);
         emailSenderService.setTitle(title);
         emailSenderService.setSender(sender);
         emailSenderService.setMessage(EmailTemplate.resetPasswordEmail.replace("{$link}", link));
@@ -52,13 +55,9 @@ public class PasswordResetController {
         User user = checkUser(userIn);
         if (user.getUserDetails().getResetPasswordValue().contentEquals(token)) {
             user.setPassword(userIn.getPassword());
+            user.setToken(null);
             userRepository.save(user);
         }
-    }
-
-    @ExceptionHandler({UserNotExistsException.class})
-    void handleBadRequests(HttpServletResponse response) throws IOException {
-        response.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value());
     }
 
     private User checkUser(UserIn userIn) {
@@ -67,5 +66,10 @@ public class PasswordResetController {
             throw new UserNotExistsException("User " + userIn.getEmail() + " is not registered");
         }
         return user;
+    }
+
+    @ExceptionHandler({UserNotExistsException.class})
+    void handleBadRequests(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value());
     }
 }
