@@ -29,7 +29,7 @@ public class LoginService {
     private Logger logger;
 
     public UserOut loginUser(UserIn userIn) {
-        user = userRepository.read(userIn.getEmail());
+        user = userRepository.read(new User(userIn));
         if ((user != null) & (user.getPassword().contentEquals(userIn.getPassword()))) {
             logger.info("User found in database: " + user.getEmail());
             user = tokenGenerator.updateTokenForUser(user);

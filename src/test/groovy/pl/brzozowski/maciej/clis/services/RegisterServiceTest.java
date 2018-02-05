@@ -36,13 +36,13 @@ public class RegisterServiceTest {
     public void shouldThrowExceptionWhenUserExistsInDatabase() throws Exception {
         user = new User();
         user.setEmail(email);
-        when(userRepository.read(anyString())).thenReturn(user);
+        when(userRepository.read(any(User.class))).thenReturn(user);
         registerService.registerUserInDatabase(userIn);
     }
 
     @Test
     public void shouldSaveUserInDatabaseWhenUserNotExist() {
-        when(userRepository.read(eq(userIn.getEmail()))).thenReturn(null);
+        when(userRepository.read(eq(new User(userIn)))).thenReturn(null);
         UserOut userOut = registerService.registerUserInDatabase(userIn);
         verify(userRepository).save(any(User.class));
         assertEquals(userOut.getEmail(), userIn.getEmail());

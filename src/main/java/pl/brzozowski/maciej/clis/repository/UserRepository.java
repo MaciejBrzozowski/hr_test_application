@@ -6,7 +6,7 @@ import pl.brzozowski.maciej.clis.entity.User;
 import java.util.HashMap;
 
 @NoArgsConstructor
-public class UserRepository {
+public class UserRepository implements RepositoryInterface<User, User> {
 
 
     private HashMap<String, User> repository = new HashMap<>();
@@ -15,8 +15,8 @@ public class UserRepository {
         this.repository = repository;
     }
 
-    public User read(String email) {
-        return repository.get(email);
+    public User read(User user) {
+        return repository.get(user.getEmail());
     }
 
     public User save(User user) {
@@ -27,7 +27,7 @@ public class UserRepository {
     }
 
     public User update(User user) {
-        if (read(user.getEmail()) != null) {
+        if (read(user).getEmail() != null) {
             save(user);
             return repository.get(user.getEmail());
         }

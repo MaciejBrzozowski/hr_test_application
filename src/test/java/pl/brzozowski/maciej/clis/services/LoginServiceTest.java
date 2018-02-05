@@ -50,11 +50,11 @@ public class LoginServiceTest {
     public void shouldNotLoginUserWithCorrectEmailAndIncorrectPassword() throws Exception {
         userIn.setEmail("correct@good.ok");
         userIn.setPassword("incorrect");
-        when(userRepository.read(eq(userIn.getEmail()))).thenReturn(user);
+        when(userRepository.read(eq(new User(userIn)))).thenReturn(user);
         when(user.getPassword().contentEquals(anyString())).thenReturn(false);
         when(user.getEmail()).thenReturn(userIn.getEmail());
         UserOut result = loginService.loginUser(userIn);
-        verify(userRepository).read(eq(userEmail));
+        verify(userRepository).read(eq(new User(userIn)));
     }
 
 }

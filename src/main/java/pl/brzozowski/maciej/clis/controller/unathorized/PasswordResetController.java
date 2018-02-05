@@ -61,7 +61,7 @@ public class PasswordResetController {
     }
 
     private User checkUser(UserIn userIn) {
-        User user = userRepository.read(userIn.getEmail());
+        User user = userRepository.read(new User(userIn));
         if (user == null) {
             throw new UserNotExistsException("User " + userIn.getEmail() + " is not registered");
         }

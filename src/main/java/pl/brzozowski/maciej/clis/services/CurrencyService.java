@@ -6,17 +6,20 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.brzozowski.maciej.clis.utilities.JsonCurrencyParser;
 
-import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
 public class CurrencyService {
 
+    @Autowired
+    private Logger logger;
     private final String URL = "https://api.fixer.io/latest?base=";
 
     private OkHttpClient client = new OkHttpClient();
@@ -36,7 +39,7 @@ public class CurrencyService {
                     .execute();
 
             if (response.code() >= 300) {
-                throw new HTTPException(response.code());
+                throw new IOException(response.toString());
             }
             currencyRate = jsonCurrencyParser.jsonParserRequestOut(response.body().string(), currencyOut);
         } catch (IOException | ParseException e) {

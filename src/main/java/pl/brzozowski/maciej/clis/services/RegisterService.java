@@ -23,7 +23,7 @@ public class RegisterService {
     private User user;
 
     public UserOut registerUserInDatabase(UserIn userIn) {
-        if (userRepository.read(userIn.getEmail()) != null) {
+        if (userRepository.read(new User(userIn)) != null) {
             throw new UserAlreadyExistsException("User " + userIn.getEmail() + " already exists");
         }
         LOG.info("user registered " + userIn.getEmail());
