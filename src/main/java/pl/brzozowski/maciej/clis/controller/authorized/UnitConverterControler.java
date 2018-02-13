@@ -35,7 +35,8 @@ public class UnitConverterControler {
     public String convertUnits(@PathVariable("unitIn") String unitIn,
                                @PathVariable("unitOut") String unitOut,
                                @PathVariable("quantity") BigDecimal quantity) {
-        logger.info("unitIn: " + unitIn + "| unitOut: " + unitOut + "| quantity: " + quantity);
+        String queryToLog = "unitIn: " + unitIn + ", unitOut: " + unitOut + ", quantity: " + quantity;
+        logger.info(queryToLog);
         response = unitConverterService.getConvertedUnit(quantity, unitIn, unitOut);
         logger.info(response);
         return response.isEmpty() ? errorResponse : response;

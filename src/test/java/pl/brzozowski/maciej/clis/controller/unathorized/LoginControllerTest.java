@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.brzozowski.maciej.clis.entity.UserIn;
@@ -19,10 +20,8 @@ import static org.powermock.api.mockito.PowerMockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static pl.brzozowski.maciej.clis.configuration.UrlMaping.LOGIN;
-import static pl.brzozowski.maciej.clis.controller.unathorized.RegisterController.INFO;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -40,6 +39,8 @@ public class LoginControllerTest {
     private String email = "test@test.pl";
     private String password = "password";
     private String token = "token";
+    private String bodyIn = "{\"email\":\"321@321.pl\",\"password\":\"1\" }";
+    private String bodyOut = "{\"email\":\"321@321.pl\",\"token\":null }";
 
     @Before
     public void setUp() throws Exception {
@@ -57,10 +58,10 @@ public class LoginControllerTest {
     public void shouldLoginUser() throws Exception {
         this.mockMvc.perform(post(LOGIN).with(httpBasic("user", "password"))
                 .contentType("application/json")
-                .content("{\"email\":\"321@321.pl\",\"password\":\"1\" }"))
+                .content(bodyIn))
                 .andDo(print()).andExpect(status()
                 .is2xxSuccessful()).
-                andExpect(content().string(INFO));
+                andExpect(MockMvcResultMatchers.content().string(bodyOut));
     }
 
 }

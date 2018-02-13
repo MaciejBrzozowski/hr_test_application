@@ -24,7 +24,7 @@ public class AuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        setRealmName("DeveloperStack");
+        setRealmName(":P login prohibited :P");
         super.afterPropertiesSet();
     }
 

@@ -1,10 +1,14 @@
 package pl.brzozowski.maciej.clis.repository;
 
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import pl.brzozowski.maciej.clis.entity.User;
 
 import java.util.HashMap;
 
+@Scope(value = "singleton")
+@Component
 @NoArgsConstructor
 public class UserRepository implements RepositoryInterface<User, User> {
 

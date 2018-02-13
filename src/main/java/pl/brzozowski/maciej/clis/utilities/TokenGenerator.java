@@ -2,14 +2,18 @@ package pl.brzozowski.maciej.clis.utilities;
 
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import pl.brzozowski.maciej.clis.entity.User;
 
 import java.util.Base64;
 import java.util.Date;
+import java.util.logging.Logger;
 
 @AllArgsConstructor
 public class TokenGenerator implements GeneratorInterface {
 
+    @Autowired
+    private Logger logger;
     private TokenDetails tokenDetails;
     private Gson gson;
     private Base64.Encoder base64;
@@ -28,12 +32,14 @@ public class TokenGenerator implements GeneratorInterface {
 
     public String generateNewToken() {
         String gsonString = gson.toJson(this.tokenDetails);
+        logger.info("token object: " + gsonString);
         return base64.encodeToString(gsonString.getBytes());
     }
 
     public String generateNewToken(User user) {
         tokenDetails = new TokenDetails(user.getEmail(), new Date().getTime());
         String gsonString = gson.toJson(this.tokenDetails);
+        logger.info("token object: " + gsonString);
         return base64.encodeToString(gsonString.getBytes());
     }
 

@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.brzozowski.maciej.clis.configuration.security.AuthenticationEntryPoint;
 import pl.brzozowski.maciej.clis.configuration.security.SecurityConfiguration;
-import pl.brzozowski.maciej.clis.configuration.security.TokenHandlerInterceptor;
-import pl.brzozowski.maciej.clis.repository.UserRepository;
+import pl.brzozowski.maciej.clis.configuration.security.ApplicationHandlerInterceptor;
+import pl.brzozowski.maciej.clis.services.UserHistoryService;
 import pl.brzozowski.maciej.clis.utilities.*;
 
 import java.util.logging.Logger;
@@ -17,7 +17,7 @@ import static java.util.logging.Logger.getLogger;
 public class ApplicationConfiguration {
 
     @Autowired
-    public TokenHandlerInterceptor tokenHandlerInterceptor;
+    public ApplicationHandlerInterceptor applicationHandlerInterceptor;
 
     @Autowired
     public SecurityConfiguration securityConfiguration;
@@ -43,11 +43,6 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public UserRepository userRepository() {
-        return new UserRepository();
-    }
-
-    @Bean
     public TokenGenerator tokenGenerator() {
         return new TokenGenerator();
     }
@@ -70,6 +65,11 @@ public class ApplicationConfiguration {
     @Bean
     public ResetTokenGenerator resetTokenGenerator() {
         return new ResetTokenGenerator();
+    }
+
+    @Bean
+    public UserHistoryService userHistoryService() {
+        return new UserHistoryService();
     }
 
 }

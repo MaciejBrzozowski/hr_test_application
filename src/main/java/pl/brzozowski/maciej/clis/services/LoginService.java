@@ -30,7 +30,7 @@ public class LoginService {
 
     public UserOut loginUser(UserIn userIn) {
         user = userRepository.read(new User(userIn));
-        if ((user != null) & (user.getPassword().contentEquals(userIn.getPassword()))) {
+        if ((user != null) && (user.getPassword().contentEquals(userIn.getPassword()))) {
             logger.info("User found in database: " + user.getEmail());
             user = tokenGenerator.updateTokenForUser(user);
             logger.info("New token generated: " + user.getToken());

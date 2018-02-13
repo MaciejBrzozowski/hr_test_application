@@ -8,32 +8,35 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.brzozowski.maciej.clis.services.Currency;
 import pl.brzozowski.maciej.clis.services.CurrencyService;
 
+import static java.lang.String.valueOf;
+
 @RestController
 @RequestMapping(value = "/auth")
 public class GetCurrencyRateController {
 
     @Autowired
     private CurrencyService currencyService;
+    private static final String HELP = "/currency/help";
     private final String CURRENCY_URL = "/currencyIn/{currencyIn}/currencyOut/{currencyOut}";
     private final String BASE_URL_AMOUNT = "/amount/{amount:.+}";
 
-
     @GetMapping(CURRENCY_URL)
     public String getCurrencyRate(@PathVariable("currencyIn") Currency currencyIn, @PathVariable("currencyOut") Currency currencyOut) {
-        return String.valueOf(currencyService.getCurrencyRate(currencyIn, currencyOut));
+        String result = valueOf(currencyService.getCurrencyRate(currencyIn, currencyOut));
+        return result;
     }
 
     @GetMapping(CURRENCY_URL + BASE_URL_AMOUNT)
     public String calculateExchange(@PathVariable("currencyIn") Currency currencyIn,
                                     @PathVariable("currencyOut") Currency currencyOut,
                                     @PathVariable("amount") double amount) {
-        return String.valueOf(amount * currencyService.getCurrencyRate(currencyIn, currencyOut));
+        String result = valueOf(amount * currencyService.getCurrencyRate(currencyIn, currencyOut));
+        return result;
     }
 
-    @GetMapping("/currency/help")
+    @GetMapping(HELP)
     public Currency[] getAvailableCurrency() {
         return Currency.values();
     }
-
 
 }

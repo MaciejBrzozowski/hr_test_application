@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.HttpServletRequest;
 import java.util.logging.Logger;
 
+import static java.util.Optional.ofNullable;
+
 public class TokenValidator {
     private String token;
     @Autowired
@@ -13,10 +15,12 @@ public class TokenValidator {
     private Logger logger;
 
     public boolean validateTokenForUser(HttpServletRequest request) {
-        boolean isTokenValid = false;
         this.token = request.getHeader("token");
-        logger.info(token);
-        return tokenDetails.isTokenValid(token, 30);
+        logger.info("Token :" + token);
+        if (ofNullable(token).isPresent()) {
+            return tokenDetails.isTokenValid(token, 30);
+        }
+        return false;
     }
 
 }

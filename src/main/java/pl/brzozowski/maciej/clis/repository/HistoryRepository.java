@@ -1,5 +1,6 @@
 package pl.brzozowski.maciej.clis.repository;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.brzozowski.maciej.clis.entity.UserHistory;
 
@@ -8,10 +9,14 @@ import java.util.LinkedList;
 
 import static java.util.Optional.ofNullable;
 
+@Scope(value = "singleton")
 @Component
 public class HistoryRepository implements RepositoryInterface<LinkedList<String>, UserHistory> {
 
     private HashMap<String, LinkedList<String>> repository = new HashMap<>();
+
+    public HistoryRepository() {
+    }
 
     HistoryRepository(HashMap<String, LinkedList<String>> repository) {
         this.repository = repository;
@@ -27,7 +32,7 @@ public class HistoryRepository implements RepositoryInterface<LinkedList<String>
     public LinkedList<String> save(UserHistory element) {
         LinkedList list = repository.get(element.getEmail());
         if (ofNullable(list).isPresent()) {
-            if (repository.size() > 100) {
+            if (repository.size() == 100) {
                 list.pop();
             }
             list.addLast(element.getQuery());
@@ -36,7 +41,6 @@ public class HistoryRepository implements RepositoryInterface<LinkedList<String>
             list.add(element.getQuery());
             repository.put(element.getEmail(), list);
         }
-
         return read(element);
     }
 

@@ -1,7 +1,6 @@
 package pl.brzozowski.maciej.clis.repository
 
 import com.thedeanda.lorem.Lorem
-import org.apache.commons.lang3.RandomStringUtils
 import pl.brzozowski.maciej.clis.entity.User
 import pl.brzozowski.maciej.clis.entity.UserDetails
 import spock.lang.Specification
@@ -28,7 +27,7 @@ class UserRepositoryTest extends Specification {
 
     def "should read user from memory Database"() {
         expect:
-        def result = userRepository.read(testUser1.getEmail())
+        def result = userRepository.read(testUser1)
         result != null
         result.getEmail() == testUser1.getEmail()
     }

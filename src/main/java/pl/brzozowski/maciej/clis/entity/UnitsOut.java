@@ -1,10 +1,12 @@
 package pl.brzozowski.maciej.clis.entity;
 
 import lombok.Getter;
+import lombok.ToString;
 import pl.brzozowski.maciej.clis.utilities.UnitConversionObject;
 
 import java.math.BigDecimal;
 
+@ToString
 @Getter
 public class UnitsOut {
 

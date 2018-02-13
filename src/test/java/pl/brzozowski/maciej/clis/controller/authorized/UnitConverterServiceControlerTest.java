@@ -17,7 +17,6 @@ import org.springframework.web.context.WebApplicationContext;
 import javax.servlet.ServletContext;
 
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -42,13 +41,13 @@ public class UnitConverterServiceControlerTest {
 
         Assert.assertNotNull(servletContext);
         Assert.assertTrue(servletContext instanceof MockServletContext);
-        Assert.assertNotNull(context.getBean("unitConverter"));
+        Assert.assertNotNull(context.getBean("unitConversionObject"));
     }
 
     @Test
-    public void shouldReturn404WhenNoBasicAuthInHeader() throws Exception {
+    public void shouldReturnNoValueWhenTryToConvertToUnsupportedUnit() throws Exception {
         this.mockMvc.perform(get("/auth/convert/meters/to/badUnit")).andDo(print())
-                .andExpect(MockMvcResultMatchers.status().is(UNAUTHORIZED.value()));
+                .andExpect(MockMvcResultMatchers.content().string("0.0"));
     }
 
     @Test

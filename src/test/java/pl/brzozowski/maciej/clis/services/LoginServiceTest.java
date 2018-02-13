@@ -7,13 +7,15 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import pl.brzozowski.maciej.clis.entity.User;
 import pl.brzozowski.maciej.clis.entity.UserIn;
 import pl.brzozowski.maciej.clis.entity.UserOut;
+import pl.brzozowski.maciej.clis.exceptions.UserNotExistsException;
 import pl.brzozowski.maciej.clis.repository.UserRepository;
 import pl.brzozowski.maciej.clis.utilities.TokenGenerator;
 
 import java.util.logging.Logger;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.powermock.api.mockito.PowerMockito.*;
 
 @RunWith(PowerMockRunner.class)
@@ -21,11 +23,12 @@ public class LoginServiceTest {
 
     private UserRepository userRepository;
     private User user;
-    private String userEmail;
+    private String correctUserEmail = "correct@good.ok";
     private UserIn userIn;
     private LoginService loginService;
     private TokenGenerator tokenGenerator;
     private Logger logger;
+    private String password = "password";
 
 
     @Before
@@ -38,23 +41,27 @@ public class LoginServiceTest {
         doNothing().when(logger).info(anyString());
         when(tokenGenerator.updateTokenForUser(any(User.class))).thenReturn(user);
         loginService = new LoginService(userRepository, null, tokenGenerator, logger);
+        when(userRepository.read(any())).thenReturn(user);
+        when(user.getPassword()).thenReturn(password);
+        when(user.getEmail()).thenReturn(correctUserEmail);
+
     }
 
     @Test
     public void shouldLoginUserWithCorrectEmailAndPassword() throws Exception {
-        userIn.setEmail("correct@good.ok");
-        userIn.setPassword("correct");
+        userIn.setEmail(correctUserEmail);
+        userIn.setPassword(password);
+        UserOut result = loginService.loginUser(userIn);
+        assertEquals(result.getEmail(), correctUserEmail);
+        assertEquals(result.getToken(), null);
     }
 
-    @Test
+    @Test(expected = UserNotExistsException.class)
     public void shouldNotLoginUserWithCorrectEmailAndIncorrectPassword() throws Exception {
         userIn.setEmail("correct@good.ok");
         userIn.setPassword("incorrect");
-        when(userRepository.read(eq(new User(userIn)))).thenReturn(user);
-        when(user.getPassword().contentEquals(anyString())).thenReturn(false);
-        when(user.getEmail()).thenReturn(userIn.getEmail());
         UserOut result = loginService.loginUser(userIn);
-        verify(userRepository).read(eq(new User(userIn)));
+
     }
 
 }

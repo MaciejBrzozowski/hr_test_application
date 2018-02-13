@@ -20,6 +20,7 @@ class HistoryRepositoryTest extends Specification {
 
     def "shoud read history form database"() {
         given:
+        mockedHistory.clear()
         LinkedList<String> linkedList = new LinkedList<>()
         linkedList.add(element)
         mockedHistory.put(userEmail, linkedList)
@@ -27,22 +28,48 @@ class HistoryRepositoryTest extends Specification {
         LinkedList<String> result = historyRepository.read(userHistory)
         then:
         result.peek() == element
+        linkedList.size() == result.size()
     }
 
     def "should save single request to database"() {
         setup:
-        LinkedList<String> linkedList = new LinkedList<>()
         userHistory.setEmail(userEmail)
         userHistory.setQuery(element)
         when:
         LinkedList<String> result = historyRepository.save(userHistory)
         then:
         result.peek() == userHistory.getQuery()
+
     }
 
     def "should not update history of requests"() {
+        given:
+        mockedHistory.clear()
+        LinkedList<String> linkedList = new LinkedList<>()
+        linkedList.add(element + element)
+        linkedList.add(element)
+        userHistory.setQuery(element + element)
+        mockedHistory.put(userEmail, linkedList)
+        when:
+        LinkedList<String> result = historyRepository.update(userHistory)
+        then:
+        result.peek() == element + element
+        result.get(1) == element
+        linkedList.size() == result.size()
     }
 
-    def "should delete selected query from database"() {
+    def "should clear user history"() {
+        given:
+        mockedHistory.clear()
+        LinkedList<String> linkedList = new LinkedList<>()
+        linkedList.add(element)
+        linkedList.add(element + element)
+        linkedList.add(element + element + element)
+        mockedHistory.put(userEmail, linkedList)
+        when:
+        historyRepository.delete(userHistory)
+        then:
+        linkedList.size() == 0
+
     }
 }

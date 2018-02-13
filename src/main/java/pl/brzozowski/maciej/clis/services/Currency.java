@@ -32,6 +32,6 @@ public enum Currency {
     THB,
     TRY,
     USD,
-    ZAR
+    ZAR;
 
 }
