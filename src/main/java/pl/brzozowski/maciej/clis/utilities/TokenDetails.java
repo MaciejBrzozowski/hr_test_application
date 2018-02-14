@@ -51,12 +51,13 @@ public class TokenDetails {
         this.timestamp = tokenDetails.timestamp;
         this.userEmail = tokenDetails.userEmail;
         long tokenValidForTime = (new Date().getTime() - this.timestamp + validForMinuts * 6000);
-        logger.info("Token valig for nanoseconds :" + tokenValidForTime);
+        logger.info("Token valid for nanoseconds :" + tokenValidForTime);
         return tokenValidForTime > 0;
     }
 
     public TokenDetails extractTokenDetails(String token) {
-        if (token != null) {
+        boolean isBase64 = org.apache.commons.codec.binary.Base64.isBase64(token.getBytes());
+        if (isBase64) {
             String unbasedToken = new String(Base64.getDecoder().decode(token));
             logger.info("token after unbase :" + unbasedToken);
             return new Gson().fromJson(unbasedToken, TokenDetails.class);

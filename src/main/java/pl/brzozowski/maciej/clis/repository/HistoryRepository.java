@@ -25,7 +25,7 @@ public class HistoryRepository implements RepositoryInterface<LinkedList<String>
     @Override
     public LinkedList<String> read(UserHistory element) {
         LinkedList<String> read = repository.get(element.getEmail());
-        return ofNullable(read).orElse(new LinkedList<>());
+        return ofNullable(read).orElseGet(LinkedList::new);
     }
 
     @Override

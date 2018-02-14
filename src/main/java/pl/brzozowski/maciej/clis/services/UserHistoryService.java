@@ -8,6 +8,7 @@ import pl.brzozowski.maciej.clis.utilities.TokenDetails;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -40,5 +41,14 @@ public class UserHistoryService {
         }
         historyRepository.save(userHistory);
         logger.info("Saved user history for user:" + userHistory.getEmail() + "and query" + userHistory.getQuery());
+    }
+
+    public LinkedList<String> getUserHistory() {
+        String token = httpServletRequest.getHeader("token");
+        String email = tokenDetails.extractTokenDetails(token).getUserEmail();
+        setUserHistory(new UserHistory());
+        userHistory.setEmail(email);
+        return historyRepository.read(userHistory);
+
     }
 }
