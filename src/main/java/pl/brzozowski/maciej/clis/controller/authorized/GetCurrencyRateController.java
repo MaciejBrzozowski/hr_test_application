@@ -9,16 +9,14 @@ import pl.brzozowski.maciej.clis.services.Currency;
 import pl.brzozowski.maciej.clis.services.CurrencyService;
 
 import static java.lang.String.valueOf;
+import static pl.brzozowski.maciej.clis.configuration.UrlMaping.*;
 
 @RestController
-@RequestMapping(value = "/auth")
+@RequestMapping(value = AUTH)
 public class GetCurrencyRateController {
 
     @Autowired
     private CurrencyService currencyService;
-    private static final String HELP = "/currency/help";
-    private final String CURRENCY_URL = "/currencyIn/{currencyIn}/currencyOut/{currencyOut}";
-    private final String BASE_URL_AMOUNT = "/amount/{amount:.+}";
 
     @GetMapping(CURRENCY_URL)
     public String getCurrencyRate(@PathVariable("currencyIn") Currency currencyIn, @PathVariable("currencyOut") Currency currencyOut) {

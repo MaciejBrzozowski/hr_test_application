@@ -21,7 +21,7 @@ public class UnitConverterControler {
     private UnitConverterService unitConverterService;
     private String response;
     private UnitConversionObject unitConversionObject;
-    private String errorResponse = "Given units can not be converted";
+    private String errorResponse = "{\"message\":\"Given units can not be converted\"}";
     private Logger logger = getLogger(this.getClass().getName());
 
     @GetMapping(UNIT_URL)

@@ -16,6 +16,10 @@ public class TokenDetails {
     @Autowired
     private Logger logger;
 
+    TokenDetails(Logger logger) {
+        this.logger = logger;
+    }
+
     public TokenDetails(String userEmail, long timestamp) {
         this.userEmail = userEmail;
         this.timestamp = timestamp;
@@ -47,21 +51,27 @@ public class TokenDetails {
     }
 
     public boolean isTokenValid(String token, int validForMinuts) {
-        TokenDetails tokenDetails = extractTokenDetails(token);
-        this.timestamp = tokenDetails.timestamp;
-        this.userEmail = tokenDetails.userEmail;
-        long tokenValidForTime = (new Date().getTime() - this.timestamp + validForMinuts * 6000);
-        logger.info("Token valid for nanoseconds :" + tokenValidForTime);
-        return tokenValidForTime > 0;
+        boolean isBase64 = token.getBytes().length % 4 == 0;
+        boolean isTokenValid = false;
+        if (isBase64) {
+            TokenDetails tokenDetails = extractTokenDetails(token);
+            this.timestamp = tokenDetails.timestamp;
+            this.userEmail = tokenDetails.userEmail;
+            long tokenValidForTime = (new Date().getTime() - this.timestamp + validForMinuts * 6000);
+            logger.info("Token valid for nanoseconds :" + tokenValidForTime);
+            isTokenValid = tokenValidForTime > 0;
+        }
+        return isTokenValid;
     }
 
     public TokenDetails extractTokenDetails(String token) {
-        boolean isBase64 = org.apache.commons.codec.binary.Base64.isBase64(token.getBytes());
+        boolean isBase64 = token.getBytes().length % 4 == 0;
         if (isBase64) {
             String unbasedToken = new String(Base64.getDecoder().decode(token));
-            logger.info("token after unbase :" + unbasedToken);
+            logger.info("Token after unbase :" + unbasedToken);
             return new Gson().fromJson(unbasedToken, TokenDetails.class);
         } else {
+            logger.info("Token invalid");
             return new TokenDetails();
         }
     }

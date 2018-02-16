@@ -9,7 +9,9 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.logging.Logger;
 
-@AllArgsConstructor
+import static lombok.AccessLevel.PACKAGE;
+
+@AllArgsConstructor(access = PACKAGE)
 public class TokenGenerator implements GeneratorInterface {
 
     @Autowired
