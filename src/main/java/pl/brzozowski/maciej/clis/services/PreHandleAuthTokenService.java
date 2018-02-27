@@ -20,12 +20,12 @@ public class PreHandleAuthTokenService {
     private Logger logger;
 
     public boolean preHandleIfTokenIsValid(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) {
-        String servletPath = httpServletRequest.getServletPath();
-        logger.info("Servlet path :" + servletPath);
-        boolean isPathForAuthorizedRequests = servletPath.startsWith("/auth");
+//        String servletPath = httpServletRequest.getServletPath();
+//        logger.info("Servlet path :" + servletPath);
+//        boolean isPathForAuthorizedRequests = servletPath.startsWith("/auth");
         boolean isTokenValid = tokenValidator.validateTokenForUser(httpServletRequest, userRepository);
-        logger.info("isPathForAuthorizedRequests : " + isPathForAuthorizedRequests);
-        logger.info("isTokenValid :" + isTokenValid);
-        return isPathForAuthorizedRequests == isTokenValid;
+//        logger.info("isPathForAuthorizedRequests : " + isPathForAuthorizedRequests);
+//        logger.info("isTokenValid :" + isTokenValid);
+        return isTokenValid;///isPathForAuthorizedRequests == isTokenValid;
     }
 }

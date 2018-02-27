@@ -20,6 +20,9 @@ public class ApplicationConfiguration {
     public ApplicationHandlerInterceptor applicationHandlerInterceptor;
 
     @Autowired
+    private HistoryInterceptor historyInterceptor;
+
+    @Autowired
     public SecurityConfiguration securityConfiguration;
 
     @Bean
@@ -72,4 +75,8 @@ public class ApplicationConfiguration {
         return new UserHistoryService();
     }
 
+    @Bean
+    public BodyExtractor bodyExtractor() {
+        return new BodyExtractor();
+    }
 }
