@@ -46,9 +46,6 @@ public class TokenDetails {
         this.userEmail = userEmail;
     }
 
-    public boolean isTokenValid(int validForMinuts) {
-        return (new Date().getTime() - this.timestamp + validForMinuts * 6000) < 0;
-    }
 
     public boolean isTokenValid(String token, int validForMinuts) {
         boolean isBase64 = token.getBytes().length % 4 == 0;
@@ -57,8 +54,8 @@ public class TokenDetails {
             TokenDetails tokenDetails = extractTokenDetails(token);
             this.timestamp = tokenDetails.timestamp;
             this.userEmail = tokenDetails.userEmail;
-            long tokenValidForTime = (new Date().getTime() - this.timestamp + validForMinuts * 6000);
-            logger.info("Token valid for nanoseconds :" + tokenValidForTime);
+            long tokenValidForTime = validForMinuts * 60 - (new Date().getTime() - this.timestamp) / 1000;
+            logger.info("Token valid for seconds :" + tokenValidForTime);
             isTokenValid = tokenValidForTime > 0;
         }
         return isTokenValid;

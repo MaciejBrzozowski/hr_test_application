@@ -1,5 +1,7 @@
 package pl.brzozowski.maciej.clis.entity;
 
+import org.springframework.lang.Nullable;
+
 public class UserOut {
 
     private String email;
@@ -30,7 +32,7 @@ public class UserOut {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(@Nullable String token) {
         this.token = token;
     }
 }

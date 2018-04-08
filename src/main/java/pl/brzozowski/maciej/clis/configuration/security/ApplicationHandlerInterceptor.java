@@ -5,12 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import pl.brzozowski.maciej.clis.services.PreHandleAuthTokenService;
-import pl.brzozowski.maciej.clis.services.UserHistoryService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @Configuration
 public class ApplicationHandlerInterceptor implements HandlerInterceptor {
@@ -21,19 +19,13 @@ public class ApplicationHandlerInterceptor implements HandlerInterceptor {
     @Autowired
     private PreHandleAuthTokenService preHandleAuthTokenService;
 
-    @Autowired
-    private UserHistoryService userHistoryService;
-
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        String request = httpServletRequest.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        logger.info("Request :" + request);
         return preHandleAuthTokenService.preHandleIfTokenIsValid(httpServletRequest, httpServletResponse, o);
     }
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        userHistoryService.save(httpServletRequest, httpServletResponse);
     }
 
     @Override

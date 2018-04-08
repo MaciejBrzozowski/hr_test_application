@@ -50,13 +50,4 @@ public class TokenGenerator implements GeneratorInterface {
         return user;
     }
 
-    public boolean isTokenValid(String token) {
-        boolean isTokenValid = false;
-        if (token != null) {
-            String tokenDetailsJson = new String(Base64.getDecoder().decode(token));
-            tokenDetails = new Gson().fromJson(tokenDetailsJson, TokenDetails.class);
-            isTokenValid = tokenDetails.isTokenValid(VALID_FOR_MINUTS);
-        }
-        return isTokenValid;
-    }
 }

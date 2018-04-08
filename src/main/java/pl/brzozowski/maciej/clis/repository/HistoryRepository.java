@@ -13,13 +13,13 @@ import static java.util.Optional.ofNullable;
 @Component
 public class HistoryRepository implements RepositoryInterface<LinkedList<String>, UserHistory> {
 
-    private HashMap<String, LinkedList<String>> repository = new HashMap<>();
+    private static HashMap<String, LinkedList<String>> repository = new HashMap<>();
 
     public HistoryRepository() {
     }
 
     HistoryRepository(HashMap<String, LinkedList<String>> repository) {
-        this.repository = repository;
+        HistoryRepository.repository = repository;
     }
 
     @Override

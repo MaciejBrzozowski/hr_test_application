@@ -2,17 +2,17 @@ package pl.brzozowski.maciej.clis.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import pl.brzozowski.maciej.clis.entity.UserHistory;
 import pl.brzozowski.maciej.clis.repository.HistoryRepository;
-import pl.brzozowski.maciej.clis.utilities.BodyExtractor;
 import pl.brzozowski.maciej.clis.utilities.TokenDetails;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
+@Component
 public class UserHistoryService {
 
     @Autowired
@@ -23,8 +23,6 @@ public class UserHistoryService {
     private Logger logger;
     @Autowired
     private HttpServletRequest httpServletRequest;
-    @Autowired
-    private BodyExtractor bodyExtractor;
     private UserHistory userHistory;
 
 
@@ -32,17 +30,6 @@ public class UserHistoryService {
         this.userHistory = userHistory;
     }
 
-    public void save(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        setUserHistory(new UserHistory());
-        String token = httpServletRequest.getHeader("token");
-        if (token != null) {
-            userHistory.setEmail(tokenDetails.extractTokenDetails(token).getUserEmail());
-            userHistory.setQuery(httpServletRequest.getServletPath() + ":" + bodyExtractor.getBody(httpServletRequest) + ":" + bodyExtractor.getBody(httpServletResponse));
-            historyRepository.save(userHistory);
-            logger.info("Saved user history for user:" + userHistory.getEmail() + " and query " + userHistory.getQuery());
-
-        }
-    }
 
     public LinkedList<String> getUserHistory() {
         String token = httpServletRequest.getHeader("token");
@@ -50,6 +37,23 @@ public class UserHistoryService {
         setUserHistory(new UserHistory());
         userHistory.setEmail(email);
         return historyRepository.read(userHistory);
+
+    }
+
+    public void save(String requestPath, String bodyIn, String bodyOut) {
+        logger.info("Saving data to history repo");
+        Optional.ofNullable(httpServletRequest.getHeader("token"))
+                .ifPresent(val -> {
+                    tokenDetails.extractTokenDetails(val);
+                    String userEmail = tokenDetails.getUserEmail();
+                    userHistory = new UserHistory();
+                    userHistory.setEmail(userEmail);
+                    userHistory.setQuery(requestPath + ":" + bodyIn + ":" + bodyOut);
+                    logger.info("Created user history element: " + userHistory.toString());
+                    LinkedList<String> historyCreated = historyRepository.save(userHistory);
+                    historyCreated.forEach(history -> logger.info("Element from history: " + history));
+                });
+
 
     }
 }

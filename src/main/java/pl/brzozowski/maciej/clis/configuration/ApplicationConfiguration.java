@@ -3,10 +3,9 @@ package pl.brzozowski.maciej.clis.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pl.brzozowski.maciej.clis.configuration.security.ApplicationHandlerInterceptor;
 import pl.brzozowski.maciej.clis.configuration.security.AuthenticationEntryPoint;
 import pl.brzozowski.maciej.clis.configuration.security.SecurityConfiguration;
-import pl.brzozowski.maciej.clis.configuration.security.ApplicationHandlerInterceptor;
-import pl.brzozowski.maciej.clis.services.UserHistoryService;
 import pl.brzozowski.maciej.clis.utilities.*;
 
 import java.util.logging.Logger;
@@ -18,9 +17,6 @@ public class ApplicationConfiguration {
 
     @Autowired
     public ApplicationHandlerInterceptor applicationHandlerInterceptor;
-
-    @Autowired
-    private HistoryInterceptor historyInterceptor;
 
     @Autowired
     public SecurityConfiguration securityConfiguration;
@@ -70,13 +66,4 @@ public class ApplicationConfiguration {
         return new ResetTokenGenerator();
     }
 
-    @Bean
-    public UserHistoryService userHistoryService() {
-        return new UserHistoryService();
-    }
-
-    @Bean
-    public BodyExtractor bodyExtractor() {
-        return new BodyExtractor();
-    }
 }

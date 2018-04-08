@@ -1,6 +1,5 @@
 package pl.brzozowski.maciej.clis.utilities
 
-import org.springframework.boot.test.mock.mockito.MockBean
 import spock.lang.Specification
 
 import java.util.logging.Logger
@@ -18,7 +17,7 @@ class TokenDetailsTest extends Specification {
         result == expected
         where:
         expected | expecedTokenStatus | time | token
-        true     | valid              | 1    |
+        true     | valid              | 1    | ""
     }
 
 //    def "test isTokenValid1"() {

@@ -6,6 +6,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 @EnableWebSecurity
@@ -25,6 +28,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
+        UserDetails userDetails = User.builder().username("user").password("password").roles("USER").build();
+        auth.inMemoryAuthentication().withUser(userDetails).passwordEncoder(passwordEncoder);
     }
+
+    private PasswordEncoder passwordEncoder = new PasswordEncoder() {
+        @Override
+        public String encode(CharSequence rawPassword) {
+            return rawPassword.toString();
+        }
+
+        @Override
+        public boolean matches(CharSequence rawPassword, String encodedPassword) {
+            return true;
+        }
+    };
 }
